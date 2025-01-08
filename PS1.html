@@ -374,8 +374,8 @@ Attaching package: 'dplyr'</code></pre>
 <span>    <span class="co"># The influenced have fixated if all have adopted A</span></span>
 <span>    <span class="va">fixated</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span><span class="op">(</span><span class="va">new_adopted_A</span><span class="op">)</span></span>
 <span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">new_adopted_A</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">fixated</span><span class="op">)</span></span>
+<span>    <span class="co"># print(new_adopted_A)</span></span>
+<span>    <span class="co"># print(fixated)</span></span>
 <span>    </span>
 <span>    <span class="va">new_tstep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>agent_id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">N</span>,</span>
 <span>                        step <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">N</span><span class="op">)</span>,</span>
@@ -392,40 +392,17 @@ Attaching package: 'dplyr'</code></pre>
 <span><span class="co"># Set up and run influencer model for N = 5.</span></span>
 <span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
 <span><span class="va">adopt_rate</span> <span class="op">&lt;-</span> <span class="fl">0.1</span></span>
-<span><span class="va">tbl_out_5</span> <span class="op">&lt;-</span> <span class="fu">run_influencer_model</span><span class="op">(</span><span class="va">N</span>, <span class="va">adopt_rate</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] FALSE FALSE FALSE FALSE FALSE
-[1] FALSE
-[1] FALSE FALSE  TRUE FALSE FALSE
-[1] FALSE
-[1]  TRUE FALSE  TRUE FALSE FALSE
-[1] FALSE
-[1]  TRUE FALSE  TRUE FALSE FALSE
-[1] FALSE
-[1]  TRUE FALSE  TRUE FALSE FALSE
-[1] FALSE
-[1]  TRUE FALSE  TRUE FALSE FALSE
-[1] FALSE
-[1]  TRUE FALSE  TRUE FALSE FALSE
-[1] FALSE
-[1]  TRUE FALSE  TRUE FALSE FALSE
-[1] FALSE
-[1]  TRUE FALSE  TRUE FALSE FALSE
-[1] FALSE
-[1]  TRUE  TRUE  TRUE FALSE FALSE
-[1] FALSE
-[1]  TRUE  TRUE  TRUE FALSE FALSE
-[1] FALSE
-[1]  TRUE  TRUE  TRUE FALSE  TRUE
-[1] FALSE
-[1]  TRUE  TRUE  TRUE FALSE  TRUE
-[1] FALSE
-[1]  TRUE  TRUE  TRUE FALSE  TRUE
-[1] FALSE
-[1] TRUE TRUE TRUE TRUE TRUE
-[1] TRUE</code></pre>
+<span><span class="va">tbl_out_5</span> <span class="op">&lt;-</span> <span class="fu">run_influencer_model</span><span class="op">(</span><span class="va">N</span>, <span class="va">adopt_rate</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot counts over time using group_by and summarise functions.</span></span>
+<span><span class="va">count_series</span> <span class="op">&lt;-</span> <span class="va">tbl_out_5</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">step</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">adopted_A</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">count_series</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">step</span>, y<span class="op">=</span><span class="va">count</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Plot counts over time using group_by and summarise functions.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <section id="how-does-the-number-of-influenced-agents-n-change-the-time-to-fixation" class="level3" data-number="3.1"><h3 data-number="3.1" class="anchored" data-anchor-id="how-does-the-number-of-influenced-agents-n-change-the-time-to-fixation">
 <span class="header-section-number">3.1</span> How does the number of influenced agents, <span class="math inline">\(N\)</span>, change the time to fixation?</h3>

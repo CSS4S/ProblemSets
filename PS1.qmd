@@ -238,8 +238,8 @@ run_influencer_model <- function(N=5, adopt_rate = 0.2, t_max = 1000) {
     # The influenced have fixated if all have adopted A
     fixated <- all(new_adopted_A)
 
-    print(new_adopted_A)
-    print(fixated)
+    # print(new_adopted_A)
+    # print(fixated)
     
     new_tstep <- tibble(agent_id = 1:N,
                         step = rep(t, N),
@@ -259,7 +259,8 @@ adopt_rate <- 0.1
 tbl_out_5 <- run_influencer_model(N, adopt_rate)
 
 # Plot counts over time using group_by and summarise functions.
-
+count_series <- tbl_out_5 %>% group_by(step) %>% summarise(count = sum(adopted_A))
+ggplot(count_series, aes(x=step, y=count)) + geom_line() + theme_classic()
 ```
 
 ### How does the number of influenced agents, $N$, change the time to fixation?
