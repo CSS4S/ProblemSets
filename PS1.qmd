@@ -17,17 +17,34 @@ editor:
 ## Hello, world! (2 points)
 
 When starting in any new language, it is a helpful tradition to write some form
-of "Hello, world!" In this particular problem, you will modify a function that
-plots a simple linear "time series" so that the plot has "Hello" on the x-axis,
-"World" on the y-axis, and so that the user can provide an arbitrary slope for
+of "Hello, world!" Typically it looks like the following `hello_world` function that prints the numbers from 1 to N then prints "hello, world!".
+
+```{r}
+hello_world <- function(N = 5) {
+  for (ii in 1:N) {
+    print(ii)
+  }
+  
+  print("hello, world!")
+}
+
+hello_world()
+```
+
+In this particular problem, you will modify a "hello, world" plotting function that
+plots a simple linear "time series" so that the plot has "time step" on the x-axis,
+Hello, World!" on the y-axis, and so that the user can provide an arbitrary slope for
 the line.
 
 ### Hello, world! in R (1 point)
 
 Below is the function `hello_world_plot` that we will use and you will edit.
-Edit the following function so that 1. The slope in the plotted line is -1 and
-not 2 without writing "-1" in the function body. 2. The y-axis label is "Hello,
-World!" 3. The x-axis label is "time step"
+Edit the function so that 
+
+1. The slope in the plotted line is -1 and not 2, but without writing "-1" in the _function body_ of `hello_world_plot`. 
+  a. The _function body_ is the everything between the opening brace (`{`) following `function(...)` and the function's closing brace (`}`).
+2. The y-axis label is "Hello, World!" 
+3. The x-axis label is "time step"
 
 ```{r}
 #| echo: true
@@ -35,7 +52,7 @@ World!" 3. The x-axis label is "time step"
 library(ggplot2)
 library(tibble)
 
-hello_world_plot <- function(n_steps = 10, start_t = 0, dt = 1, a = -1) {
+hello_world_plot <- function(n_steps = 10, start_t = 0, dt = 1, slope = -1) {
 
   # Local function that is only available in hello_world_plot.
   y <- function(t, a = 2) {
@@ -193,7 +210,7 @@ always connected to at least one other individual for any value of $p > 0$?
 
 (DELETE THIS LINE AND WRITE YOUR RESPONSE STARTING HERE)
 
-## A basic DIY influencer model (2 points)
+## The stochastic (i.e., random) influencer model (2 points)
 
 The influencer model represents the hypothetical situation where $N$
 individuals, performing a non-adaptive behavior, $\neg A$, observe one other
@@ -209,7 +226,7 @@ In the final problem in this final problem set, below, you will use a recursive
 function to ignore individuals all together and consider the *mass action* that
 occurs on average on each time step.
 
-In Problem Set 2, we will implement the influencer model yet another, more general way, that we can follow for developing more complicated models. For now, let's see how we can program the influencer model in a relatively simple way.
+In Problem Set 2, we will implement the influencer model in another, more general way, that we can follow for developing more complicated models. For now, let's see how we can program the influencer model in a relatively simple way.
 
 ```{r}
 library(purrr)
@@ -269,21 +286,19 @@ ggplot(count_series, aes(x=step, y=count)) + geom_line() + theme_classic()
 
 *Solution:* Write R code below followed by up to one paragraph explaining your observations.
 
-## Recursive Influencer model (2 points)
+## Recursive, deterministic (non-random) influencer model (2 points)
 
 The recursive influencer model has the following form:
 
 $$
 A_{t+1} = A_{t} + \alpha(N - A_{t})
 $$
-
-Use the tools provided in this Problem Set to create a function that takes three
-arguments, $N$, $\alpha$, and $T$, where $T$ is the number of time steps to run.
+where $A_{t}$ is the number of people doing behavior $A$ at time $t$, $N$ is again the population size, and $\alpha$ is still the adoption rate. Use the tools provided in this Problem Set to create a function that takes three arguments, $N$, $\alpha$, and $T$, where $T$ is the number of time steps to run. Use a for-loop to create an $A_t$ time series, setting the initial value to be $A_{t=0} = 0$ as in the stochastic version. This form is also called the _mass action_ form of the 
 
 ### How does increasing $\alpha$ affect $T$?
 
 *Problem:* Answer this question by selecting four different $\alpha$, creating time series of counts of how many individuals are doing $A$ at each time step.
 
-*Solution:* Write R code below followed by up to one paragraph explaining your observations.
+*Solution:* Write R code below followed by up to one paragraph explaining your observations. 
 
 ## References {.unnumbered}

@@ -111,13 +111,13 @@ window.Quarto = {
   </ul>
 </li>
   <li>
-<a href="#a-basic-diy-influencer-model-2-points" id="toc-a-basic-diy-influencer-model-2-points" class="nav-link" data-scroll-target="#a-basic-diy-influencer-model-2-points"><span class="header-section-number">3</span> A basic DIY influencer model (2 points)</a>
+<a href="#the-stochastic-i.e.-random-influencer-model-2-points" id="toc-the-stochastic-i.e.-random-influencer-model-2-points" class="nav-link" data-scroll-target="#the-stochastic-i.e.-random-influencer-model-2-points"><span class="header-section-number">3</span> The stochastic (i.e., random) influencer model (2 points)</a>
   <ul class="collapse">
 <li><a href="#how-does-the-number-of-influenced-agents-n-change-the-time-to-fixation" id="toc-how-does-the-number-of-influenced-agents-n-change-the-time-to-fixation" class="nav-link" data-scroll-target="#how-does-the-number-of-influenced-agents-n-change-the-time-to-fixation"><span class="header-section-number">3.1</span> How does the number of influenced agents, <span class="math inline">\(N\)</span>, change the time to fixation?</a></li>
   </ul>
 </li>
   <li>
-<a href="#recursive-influencer-model-2-points" id="toc-recursive-influencer-model-2-points" class="nav-link" data-scroll-target="#recursive-influencer-model-2-points"><span class="header-section-number">4</span> Recursive Influencer model (2 points)</a>
+<a href="#recursive-deterministic-non-random-influencer-model-2-points" id="toc-recursive-deterministic-non-random-influencer-model-2-points" class="nav-link" data-scroll-target="#recursive-deterministic-non-random-influencer-model-2-points"><span class="header-section-number">4</span> Recursive, deterministic (non-random) influencer model (2 points)</a>
   <ul class="collapse">
 <li><a href="#how-does-increasing-alpha-affect-t" id="toc-how-does-increasing-alpha-affect-t" class="nav-link" data-scroll-target="#how-does-increasing-alpha-affect-t"><span class="header-section-number">4.1</span> How does increasing <span class="math inline">\(\alpha\)</span> affect <span class="math inline">\(T\)</span>?</a></li>
   </ul>
@@ -142,15 +142,45 @@ window.Quarto = {
 
 </header><section id="hello-world-2-points" class="level2" data-number="1"><h2 data-number="1" class="anchored" data-anchor-id="hello-world-2-points">
 <span class="header-section-number">1</span> Hello, world! (2 points)</h2>
-<p>When starting in any new language, it is a helpful tradition to write some form of “Hello, world!” In this particular problem, you will modify a function that plots a simple linear “time series” so that the plot has “Hello” on the x-axis, “World” on the y-axis, and so that the user can provide an arbitrary slope for the line.</p>
+<p>When starting in any new language, it is a helpful tradition to write some form of “Hello, world!” Typically it looks like the following <code>hello_world</code> function that prints the numbers from 1 to N then prints “hello, world!”.</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hello_world</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">N</span> <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">ii</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">N</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">ii</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"hello, world!"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">hello_world</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] "hello, world!"</code></pre>
+</div>
+</div>
+<p>In this particular problem, you will modify a “hello, world” plotting function that plots a simple linear “time series” so that the plot has “time step” on the x-axis, Hello, World!” on the y-axis, and so that the user can provide an arbitrary slope for the line.</p>
 <section id="hello-world-in-r-1-point" class="level3" data-number="1.1"><h3 data-number="1.1" class="anchored" data-anchor-id="hello-world-in-r-1-point">
 <span class="header-section-number">1.1</span> Hello, world! in R (1 point)</h3>
-<p>Below is the function <code>hello_world_plot</code> that we will use and you will edit. Edit the following function so that 1. The slope in the plotted line is -1 and not 2 without writing “-1” in the function body. 2. The y-axis label is “Hello, World!” 3. The x-axis label is “time step”</p>
+<p>Below is the function <code>hello_world_plot</code> that we will use and you will edit. Edit the function so that</p>
+<ol type="1">
+<li>The slope in the plotted line is -1 and not 2, but without writing “-1” in the <em>function body</em> of <code>hello_world_plot</code>.</li>
+</ol>
+<ol type="a">
+<li>The <em>function body</em> is the everything between the opening brace (<code>{</code>) following <code>function(...)</code> and the function’s closing brace (<code>}</code>).</li>
+</ol>
+<ol start="2" type="1">
+<li>The y-axis label is “Hello, World!”</li>
+<li>The x-axis label is “time step”</li>
+</ol>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">hello_world_plot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n_steps</span> <span class="op">=</span> <span class="fl">10</span>, <span class="va">start_t</span> <span class="op">=</span> <span class="fl">0</span>, <span class="va">dt</span> <span class="op">=</span> <span class="fl">1</span>, <span class="va">a</span> <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="va">hello_world_plot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n_steps</span> <span class="op">=</span> <span class="fl">10</span>, <span class="va">start_t</span> <span class="op">=</span> <span class="fl">0</span>, <span class="va">dt</span> <span class="op">=</span> <span class="fl">1</span>, <span class="va">slope</span> <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
 <span></span>
 <span>  <span class="co"># Local function that is only available in hello_world_plot.</span></span>
 <span>  <span class="va">y</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">a</span> <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">{</span></span>
@@ -173,10 +203,10 @@ window.Quarto = {
 </div>
 <p>We can run the default hello_world_plot as follows.</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">hello_world_plot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">hello_world_plot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="528"></p>
+<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="528"></p>
 </figure>
 </div>
 </div>
@@ -185,7 +215,7 @@ window.Quarto = {
 <span class="header-section-number">1.2</span> <code>Hello</code> and <code>World</code> groups (1 point)</h3>
 <p>For this problem, modify the following function so that the group names in the legend titled “Group Name” are “Hello” and “World” using only the keyword variables <code>grp_name_1</code> and <code>grp_name_2</code> and not re-writing the strings “Hello” and “World”.</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hello_world_grouped</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">grp_name_1</span> <span class="op">=</span> <span class="st">"Hello"</span>, <span class="va">grp_name_2</span> <span class="op">=</span> <span class="st">"World"</span>, <span class="va">intercept_1</span> <span class="op">=</span> <span class="fl">5</span>, <span class="va">slope_1</span> <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span>, <span class="va">intercept_2</span> <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, <span class="va">slope_2</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hello_world_grouped</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">grp_name_1</span> <span class="op">=</span> <span class="st">"Hello"</span>, <span class="va">grp_name_2</span> <span class="op">=</span> <span class="st">"World"</span>, <span class="va">intercept_1</span> <span class="op">=</span> <span class="fl">5</span>, <span class="va">slope_1</span> <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span>, <span class="va">intercept_2</span> <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, <span class="va">slope_2</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="va">t_single</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from<span class="op">=</span><span class="fl">0</span>, to<span class="op">=</span><span class="fl">10</span>, by<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">t_single</span>, <span class="fl">2</span><span class="op">)</span></span>
@@ -213,7 +243,7 @@ window.Quarto = {
 <span><span class="fu">hello_world_grouped</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -225,7 +255,7 @@ window.Quarto = {
 <p>Below I demonstrate how to make a social influence triangle and square. Follow the pattern shown in making the triangle and square to make a social influence pentagon and hexagon.</p>
 <p>Here is the triangle:</p>
 <div class="cell" data-fig-label="fig-social-triangle">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/">igraph</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/">igraph</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'igraph'</code></pre>
@@ -245,23 +275,23 @@ Attaching package: 'igraph'</code></pre>
 
     union</code></pre>
 </div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">socnet</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/make_graph.html">make_graph</a></span><span class="op">(</span><span class="op">~</span> <span class="va">Forest</span><span class="op">-</span><span class="op">+</span><span class="va">River</span><span class="op">-</span><span class="op">+</span><span class="va">Brook</span><span class="op">+</span><span class="op">+</span><span class="va">Forest</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">socnet</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/make_graph.html">make_graph</a></span><span class="op">(</span><span class="op">~</span> <span class="va">Forest</span><span class="op">-</span><span class="op">+</span><span class="va">River</span><span class="op">-</span><span class="op">+</span><span class="va">Brook</span><span class="op">+</span><span class="op">+</span><span class="va">Forest</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">socnet</span>, layout <span class="op">=</span> <span class="fu"><a href="https://r.igraph.org/reference/layout_in_circle.html">layout_in_circle</a></span><span class="op">(</span><span class="va">socnet</span><span class="op">)</span>, edge.curved<span class="op">=</span><span class="fl">0.2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Let’s add another node called <code>Marcus</code> to make a square:</p>
 <div class="cell" data-fig-label="fig-social-triangle">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/">igraph</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/">igraph</a></span><span class="op">)</span></span>
 <span><span class="va">socnet</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/make_graph.html">make_graph</a></span><span class="op">(</span><span class="op">~</span> <span class="va">Forest</span><span class="op">-</span><span class="op">+</span><span class="va">River</span><span class="op">-</span><span class="op">+</span><span class="va">Marcus</span><span class="op">-</span><span class="op">+</span><span class="va">Brook</span><span class="op">+</span><span class="op">+</span><span class="va">Forest</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">socnet</span>, layout <span class="op">=</span> <span class="fu"><a href="https://r.igraph.org/reference/layout_in_circle.html">layout_in_circle</a></span><span class="op">(</span><span class="va">socnet</span><span class="op">)</span>, edge.curved<span class="op">=</span><span class="fl">0.2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -271,25 +301,25 @@ Attaching package: 'igraph'</code></pre>
 <span class="header-section-number">2.1.1</span> Social influence pentagon</h4>
 <p>Build the pentagon by adding one name you choose to the four already chosen in the <code>make_graph</code> function call. Follow the pattern from the triangle to the square.</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Your code here! Copy, paste, and modify the above code block to make a social influence square with </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Your code here! Copy, paste, and modify the above code block to make a social influence square with </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="social-influence-hexagon" class="level4" data-number="2.1.2"><h4 data-number="2.1.2" class="anchored" data-anchor-id="social-influence-hexagon">
 <span class="header-section-number">2.1.2</span> Social influence hexagon</h4>
 <p>Build the hexagon by adding one more name to the list used in the pentagon. In the hexagon, make one more pair of nodes have bi-directional influence on one another, as Brook and Forest do in the example triangle and squares below.</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Your code here! Copy, paste, and modify the above code block to make a social influence hexagon, including an additional dyad with bi-directional influence.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Your code here! Copy, paste, and modify the above code block to make a social influence hexagon, including an additional dyad with bi-directional influence.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="random-networks-1-point" class="level3" data-number="2.2"><h3 data-number="2.2" class="anchored" data-anchor-id="random-networks-1-point">
 <span class="header-section-number">2.2</span> Random networks (1 point)</h3>
 <p>We will consider social transmission in networks drawn from random graph distributions and using other randomized construction methods. We will also sometimes use undirected graphs, with no arrowhead, to mean the same thing as bidirectional influence, as Forest and Brook were in the example above. The Erdős-Rényi random graph model creates a graph with <span class="math inline">\(n\)</span> nodes, each with a probability <span class="math inline">\(p\)</span> of having an undirected edge between them.</p>
 <p>We can create a random graph using the Erdős-Rényi model with the <a href="https://r.igraph.org/reference/sample_gnp.html"><code>sample_gnp</code> function in <code>igraph</code></a>. It is called <code>sample_gnp</code> because of the common notation <span class="math inline">\(G(n,p)\)</span> for the family of Erdős-Rényi random graphs. Here is how to generate a <span class="math inline">\(G(n,p)\)</span> graph with 20 nodes and a 50% chance of an edge existing between each node:</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/">igraph</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/">igraph</a></span><span class="op">)</span></span>
 <span><span class="va">net</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/sample_gnp.html">sample_gnp</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">20</span>, p<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">net</span>, layout <span class="op">=</span> <span class="fu"><a href="https://r.igraph.org/reference/layout_in_circle.html">layout_in_circle</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -298,12 +328,12 @@ Attaching package: 'igraph'</code></pre>
 <span class="header-section-number">2.2.1</span> Programming prompt (0.5 points)</h4>
 <p>Create and plot four different Erdős-Rényi graphs with four different values of <code>p</code>, two greater than 0.5 and two less than 0.5. Paste four different code blocks below that create networks with different values of <span class="math inline">\(p\)</span>. A stub for the first one is below.</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/">igraph</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/">igraph</a></span><span class="op">)</span></span>
 <span><span class="co"># net &lt;- ???    &lt;= Your Code Here!</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">net</span>, layout <span class="op">=</span> <span class="fu"><a href="https://r.igraph.org/reference/layout_in_circle.html">layout_in_circle</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -314,14 +344,14 @@ Attaching package: 'igraph'</code></pre>
 </section><section id="student-response" class="level4" data-number="2.2.3"><h4 data-number="2.2.3" class="anchored" data-anchor-id="student-response">
 <span class="header-section-number">2.2.3</span> Student response</h4>
 <p>(DELETE THIS LINE AND WRITE YOUR RESPONSE STARTING HERE)</p>
-</section></section></section><section id="a-basic-diy-influencer-model-2-points" class="level2" data-number="3"><h2 data-number="3" class="anchored" data-anchor-id="a-basic-diy-influencer-model-2-points">
-<span class="header-section-number">3</span> A basic DIY influencer model (2 points)</h2>
+</section></section></section><section id="the-stochastic-i.e.-random-influencer-model-2-points" class="level2" data-number="3"><h2 data-number="3" class="anchored" data-anchor-id="the-stochastic-i.e.-random-influencer-model-2-points">
+<span class="header-section-number">3</span> The stochastic (i.e., random) influencer model (2 points)</h2>
 <p>The influencer model represents the hypothetical situation where <span class="math inline">\(N\)</span> individuals, performing a non-adaptive behavior, <span class="math inline">\(\neg A\)</span>, observe one other agent, the influencer, performing adaptive behavior <span class="math inline">\(A\)</span>. The <span class="math inline">\(\neg\)</span> symbol is a formal logic symbol indicating “negation of” or the “complement of”. The model assumes in general that the observers adopt <span class="math inline">\(A\)</span> with probability <span class="math inline">\(\alpha\)</span>. These abstract names can be customized for a system of interest. In the biking influencer example from class, the adaptive behavior was labeled <span class="math inline">\(B\)</span> for biking and any other commute behavior was <span class="math inline">\(N\)</span> for “not biking”. We use <span class="math inline">\(A\)</span> in the code below for this Problem Set.</p>
 <p>We will program a version of this ourselves here that is conceptually agent-based, in that each individual has an explicit representation in the model. However there are no individual, autonomous agents yet in the code. Each agent is just represented as a row in a table.</p>
 <p>In the final problem in this final problem set, below, you will use a recursive function to ignore individuals all together and consider the <em>mass action</em> that occurs on average on each time step.</p>
-<p>In Problem Set 2, we will implement the influencer model yet another, more general way, that we can follow for developing more complicated models. For now, let’s see how we can program the influencer model in a relatively simple way.</p>
+<p>In Problem Set 2, we will implement the influencer model in another, more general way, that we can follow for developing more complicated models. For now, let’s see how we can program the influencer model in a relatively simple way.</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/">purrr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/">purrr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'purrr'</code></pre>
@@ -331,7 +361,7 @@ Attaching package: 'purrr'</code></pre>
 
     compose, simplify</code></pre>
 </div>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
@@ -352,7 +382,7 @@ Attaching package: 'dplyr'</code></pre>
 
     intersect, setdiff, setequal, union</code></pre>
 </div>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">run_influencer_model</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">N</span><span class="op">=</span><span class="fl">5</span>, <span class="va">adopt_rate</span> <span class="op">=</span> <span class="fl">0.2</span>, <span class="va">t_max</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">run_influencer_model</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">N</span><span class="op">=</span><span class="fl">5</span>, <span class="va">adopt_rate</span> <span class="op">=</span> <span class="fl">0.2</span>, <span class="va">t_max</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="co"># Initialize influenced individuals' traits, time step, and ids.</span></span>
 <span>  <span class="va">prev_adopted_A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="va">N</span><span class="op">)</span></span>
@@ -399,7 +429,7 @@ Attaching package: 'dplyr'</code></pre>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">count_series</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">step</span>, y<span class="op">=</span><span class="va">count</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -408,13 +438,12 @@ Attaching package: 'dplyr'</code></pre>
 <span class="header-section-number">3.1</span> How does the number of influenced agents, <span class="math inline">\(N\)</span>, change the time to fixation?</h3>
 <p><em>Problem:</em> Answer this question by selecting three different <span class="math inline">\(N\)</span> values and explaining your observations (2 points).</p>
 <p><em>Solution:</em> Write R code below followed by up to one paragraph explaining your observations.</p>
-</section></section><section id="recursive-influencer-model-2-points" class="level2" data-number="4"><h2 data-number="4" class="anchored" data-anchor-id="recursive-influencer-model-2-points">
-<span class="header-section-number">4</span> Recursive Influencer model (2 points)</h2>
+</section></section><section id="recursive-deterministic-non-random-influencer-model-2-points" class="level2" data-number="4"><h2 data-number="4" class="anchored" data-anchor-id="recursive-deterministic-non-random-influencer-model-2-points">
+<span class="header-section-number">4</span> Recursive, deterministic (non-random) influencer model (2 points)</h2>
 <p>The recursive influencer model has the following form:</p>
 <p><span class="math display">\[
 A_{t+1} = A_{t} + \alpha(N - A_{t})
-\]</span></p>
-<p>Use the tools provided in this Problem Set to create a function that takes three arguments, <span class="math inline">\(N\)</span>, <span class="math inline">\(\alpha\)</span>, and <span class="math inline">\(T\)</span>, where <span class="math inline">\(T\)</span> is the number of time steps to run.</p>
+\]</span> where <span class="math inline">\(A_{t}\)</span> is the number of people doing behavior <span class="math inline">\(A\)</span> at time <span class="math inline">\(t\)</span>, <span class="math inline">\(N\)</span> is again the population size, and <span class="math inline">\(\alpha\)</span> is still the adoption rate. Use the tools provided in this Problem Set to create a function that takes three arguments, <span class="math inline">\(N\)</span>, <span class="math inline">\(\alpha\)</span>, and <span class="math inline">\(T\)</span>, where <span class="math inline">\(T\)</span> is the number of time steps to run. Use a for-loop to create an <span class="math inline">\(A_t\)</span> time series, setting the initial value to be <span class="math inline">\(A_{t=0} = 0\)</span> as in the stochastic version. This form is also called the <em>mass action</em> form of the</p>
 <section id="how-does-increasing-alpha-affect-t" class="level3" data-number="4.1"><h3 data-number="4.1" class="anchored" data-anchor-id="how-does-increasing-alpha-affect-t">
 <span class="header-section-number">4.1</span> How does increasing <span class="math inline">\(\alpha\)</span> affect <span class="math inline">\(T\)</span>?</h3>
 <p><em>Problem:</em> Answer this question by selecting four different <span class="math inline">\(\alpha\)</span>, creating time series of counts of how many individuals are doing <span class="math inline">\(A\)</span> at each time step.</p>
