@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.551">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Problem set 1, problems 2 - 5 worth 8 points total</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="PS1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="PS1_files/libs/quarto-html/quarto.js"></script>
+<script src="PS1_files/libs/quarto-html/popper.min.js"></script>
+<script src="PS1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="PS1_files/libs/quarto-html/anchor.min.js"></script>
+<link href="PS1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="PS1_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="PS1_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="PS1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="PS1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+</head>
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#hello-world-2-points" id="toc-hello-world-2-points" class="nav-link active" data-scroll-target="#hello-world-2-points"><span class="header-section-number">1</span> Hello, world! (2 points)</a>
+  <ul class="collapse">
+<li><a href="#hello-world-in-r-1-point" id="toc-hello-world-in-r-1-point" class="nav-link" data-scroll-target="#hello-world-in-r-1-point"><span class="header-section-number">1.1</span> Hello, world! in R (1 point)</a></li>
+  <li><a href="#hello-and-world-groups-1-point" id="toc-hello-and-world-groups-1-point" class="nav-link" data-scroll-target="#hello-and-world-groups-1-point"><span class="header-section-number">1.2</span> <code>Hello</code> and <code>World</code> groups (1 point)</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#fun-with-networks-2-points" id="toc-fun-with-networks-2-points" class="nav-link" data-scroll-target="#fun-with-networks-2-points"><span class="header-section-number">2</span> Fun with networks (2 points)</a>
+  <ul class="collapse">
+<li><a href="#directional-information-in-simple-networks-1-point" id="toc-directional-information-in-simple-networks-1-point" class="nav-link" data-scroll-target="#directional-information-in-simple-networks-1-point"><span class="header-section-number">2.1</span> Directional information in simple networks (1 point)</a></li>
+  <li><a href="#random-networks-1-point" id="toc-random-networks-1-point" class="nav-link" data-scroll-target="#random-networks-1-point"><span class="header-section-number">2.2</span> Random networks (1 point)</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#a-basic-diy-influencer-model-2-points" id="toc-a-basic-diy-influencer-model-2-points" class="nav-link" data-scroll-target="#a-basic-diy-influencer-model-2-points"><span class="header-section-number">3</span> A basic DIY influencer model (2 points)</a>
+  <ul class="collapse">
+<li><a href="#how-does-the-number-of-influenced-agents-n-change-the-time-to-fixation" id="toc-how-does-the-number-of-influenced-agents-n-change-the-time-to-fixation" class="nav-link" data-scroll-target="#how-does-the-number-of-influenced-agents-n-change-the-time-to-fixation"><span class="header-section-number">3.1</span> How does the number of influenced agents, <span class="math inline">\(N\)</span>, change the time to fixation?</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#recursive-influencer-model-2-points" id="toc-recursive-influencer-model-2-points" class="nav-link" data-scroll-target="#recursive-influencer-model-2-points"><span class="header-section-number">4</span> Recursive Influencer model (2 points)</a>
+  <ul class="collapse">
+<li><a href="#how-does-increasing-alpha-affect-t" id="toc-how-does-increasing-alpha-affect-t" class="nav-link" data-scroll-target="#how-does-increasing-alpha-affect-t"><span class="header-section-number">4.1</span> How does increasing <span class="math inline">\(\alpha\)</span> affect <span class="math inline">\(T\)</span>?</a></li>
+  </ul>
+</li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></nav>
+</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Problem set 1, problems 2 - 5 worth 8 points total</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="hello-world-2-points" class="level2" data-number="1"><h2 data-number="1" class="anchored" data-anchor-id="hello-world-2-points">
+<span class="header-section-number">1</span> Hello, world! (2 points)</h2>
+<p>When starting in any new language, it is a helpful tradition to write some form of “Hello, world!” In this particular problem, you will modify a function that plots a simple linear “time series” so that the plot has “Hello” on the x-axis, “World” on the y-axis, and so that the user can provide an arbitrary slope for the line.</p>
+<section id="hello-world-in-r-1-point" class="level3" data-number="1.1"><h3 data-number="1.1" class="anchored" data-anchor-id="hello-world-in-r-1-point">
+<span class="header-section-number">1.1</span> Hello, world! in R (1 point)</h3>
+<p>Below is the function <code>hello_world_plot</code> that we will use and you will edit. Edit the following function so that 1. The slope in the plotted line is -1 and not 2 without writing “-1” in the function body. 2. The y-axis label is “Hello, World!” 3. The x-axis label is “time step”</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">hello_world_plot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n_steps</span> <span class="op">=</span> <span class="fl">10</span>, <span class="va">start_t</span> <span class="op">=</span> <span class="fl">0</span>, <span class="va">dt</span> <span class="op">=</span> <span class="fl">1</span>, <span class="va">a</span> <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>  <span class="co"># Local function that is only available in hello_world_plot.</span></span>
+<span>  <span class="va">y</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">a</span> <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="va">a</span> <span class="op">*</span> <span class="va">t</span> </span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="co"># Create time step sequence given parameters passed to this function.</span></span>
+<span>  <span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from<span class="op">=</span><span class="va">start_t</span>, by<span class="op">=</span><span class="va">dt</span>, length.out<span class="op">=</span><span class="va">n_steps</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="co"># Create fake data table (i.e., a "tibble" from the tibble library).</span></span>
+<span>  <span class="va">fake_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu">y</span><span class="op">(</span><span class="va">t</span><span class="op">)</span>, t <span class="op">=</span> <span class="va">t</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="co"># Plot the fake data.</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">fake_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">t</span>, y<span class="op">=</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"relabel me 1"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"relabel me 2"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can run the default hello_world_plot as follows.</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">hello_world_plot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="528"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="hello-and-world-groups-1-point" class="level3" data-number="1.2"><h3 data-number="1.2" class="anchored" data-anchor-id="hello-and-world-groups-1-point">
+<span class="header-section-number">1.2</span> <code>Hello</code> and <code>World</code> groups (1 point)</h3>
+<p>For this problem, modify the following function so that the group names in the legend titled “Group Name” are “Hello” and “World” using only the keyword variables <code>grp_name_1</code> and <code>grp_name_2</code> and not re-writing the strings “Hello” and “World”.</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hello_world_grouped</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">grp_name_1</span> <span class="op">=</span> <span class="st">"Hello"</span>, <span class="va">grp_name_2</span> <span class="op">=</span> <span class="st">"World"</span>, <span class="va">intercept_1</span> <span class="op">=</span> <span class="fl">5</span>, <span class="va">slope_1</span> <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span>, <span class="va">intercept_2</span> <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, <span class="va">slope_2</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="va">t_single</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from<span class="op">=</span><span class="fl">0</span>, to<span class="op">=</span><span class="fl">10</span>, by<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">t_single</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">intercept_1</span> <span class="op">+</span> <span class="op">(</span><span class="va">slope_1</span> <span class="op">*</span> <span class="va">t_single</span><span class="op">)</span>, </span>
+<span>                   <span class="va">intercept_2</span> <span class="op">+</span> <span class="op">(</span><span class="va">slope_2</span> <span class="op">*</span> <span class="va">t_single</span><span class="op">)</span><span class="op">)</span>   </span>
+<span>  <span class="co"># print(length(t))</span></span>
+<span>  <span class="co"># print(length(val))</span></span>
+<span>  </span>
+<span>  <span class="va">fake_data_2</span> <span class="op">&lt;-</span></span>
+<span>    <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>      grp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"changeme_1"</span>, <span class="fl">11</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"changeme_2"</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      t <span class="op">=</span> <span class="va">t</span>,</span>
+<span>      val <span class="op">=</span> <span class="va">val</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">fake_data_2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">t</span>, y<span class="op">=</span><span class="va">val</span>, color<span class="op">=</span><span class="va">grp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html">guide_legend</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Group Name"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Time step"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Value"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">16</span><span class="op">)</span></span>
+<span>  <span class="co"># print(fake_data_2)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu">hello_world_grouped</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section></section><section id="fun-with-networks-2-points" class="level2" data-number="2"><h2 data-number="2" class="anchored" data-anchor-id="fun-with-networks-2-points">
+<span class="header-section-number">2</span> Fun with networks (2 points)</h2>
+<section id="directional-information-in-simple-networks-1-point" class="level3" data-number="2.1"><h3 data-number="2.1" class="anchored" data-anchor-id="directional-information-in-simple-networks-1-point">
+<span class="header-section-number">2.1</span> Directional information in simple networks (1 point)</h3>
+<p>Below I demonstrate how to make a social influence triangle and square. Follow the pattern shown in making the triangle and square to make a social influence pentagon and hexagon.</p>
+<p>Here is the triangle:</p>
+<div class="cell" data-fig-label="fig-social-triangle">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/">igraph</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'igraph'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:tibble':
+
+    as_data_frame</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    decompose, spectrum</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:base':
+
+    union</code></pre>
+</div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">socnet</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/make_graph.html">make_graph</a></span><span class="op">(</span><span class="op">~</span> <span class="va">Forest</span><span class="op">-</span><span class="op">+</span><span class="va">River</span><span class="op">-</span><span class="op">+</span><span class="va">Brook</span><span class="op">+</span><span class="op">+</span><span class="va">Forest</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">socnet</span>, layout <span class="op">=</span> <span class="fu"><a href="https://r.igraph.org/reference/layout_in_circle.html">layout_in_circle</a></span><span class="op">(</span><span class="va">socnet</span><span class="op">)</span>, edge.curved<span class="op">=</span><span class="fl">0.2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Let’s add another node called <code>Marcus</code> to make a square:</p>
+<div class="cell" data-fig-label="fig-social-triangle">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/">igraph</a></span><span class="op">)</span></span>
+<span><span class="va">socnet</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/make_graph.html">make_graph</a></span><span class="op">(</span><span class="op">~</span> <span class="va">Forest</span><span class="op">-</span><span class="op">+</span><span class="va">River</span><span class="op">-</span><span class="op">+</span><span class="va">Marcus</span><span class="op">-</span><span class="op">+</span><span class="va">Brook</span><span class="op">+</span><span class="op">+</span><span class="va">Forest</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">socnet</span>, layout <span class="op">=</span> <span class="fu"><a href="https://r.igraph.org/reference/layout_in_circle.html">layout_in_circle</a></span><span class="op">(</span><span class="va">socnet</span><span class="op">)</span>, edge.curved<span class="op">=</span><span class="fl">0.2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Specifically, follow the instructions below in 2.1.1 and 2.1.2.</p>
+<section id="social-influence-pentagon" class="level4" data-number="2.1.1"><h4 data-number="2.1.1" class="anchored" data-anchor-id="social-influence-pentagon">
+<span class="header-section-number">2.1.1</span> Social influence pentagon</h4>
+<p>Build the pentagon by adding one name you choose to the four already chosen in the <code>make_graph</code> function call. Follow the pattern from the triangle to the square.</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Your code here! Copy, paste, and modify the above code block to make a social influence square with </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="social-influence-hexagon" class="level4" data-number="2.1.2"><h4 data-number="2.1.2" class="anchored" data-anchor-id="social-influence-hexagon">
+<span class="header-section-number">2.1.2</span> Social influence hexagon</h4>
+<p>Build the hexagon by adding one more name to the list used in the pentagon. In the hexagon, make one more pair of nodes have bi-directional influence on one another, as Brook and Forest do in the example triangle and squares below.</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Your code here! Copy, paste, and modify the above code block to make a social influence hexagon, including an additional dyad with bi-directional influence.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="random-networks-1-point" class="level3" data-number="2.2"><h3 data-number="2.2" class="anchored" data-anchor-id="random-networks-1-point">
+<span class="header-section-number">2.2</span> Random networks (1 point)</h3>
+<p>We will consider social transmission in networks drawn from random graph distributions and using other randomized construction methods. We will also sometimes use undirected graphs, with no arrowhead, to mean the same thing as bidirectional influence, as Forest and Brook were in the example above. The Erdős-Rényi random graph model creates a graph with <span class="math inline">\(n\)</span> nodes, each with a probability <span class="math inline">\(p\)</span> of having an undirected edge between them.</p>
+<p>We can create a random graph using the Erdős-Rényi model with the <a href="https://r.igraph.org/reference/sample_gnp.html"><code>sample_gnp</code> function in <code>igraph</code></a>. It is called <code>sample_gnp</code> because of the common notation <span class="math inline">\(G(n,p)\)</span> for the family of Erdős-Rényi random graphs. Here is how to generate a <span class="math inline">\(G(n,p)\)</span> graph with 20 nodes and a 50% chance of an edge existing between each node:</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/">igraph</a></span><span class="op">)</span></span>
+<span><span class="va">net</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/sample_gnp.html">sample_gnp</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">20</span>, p<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">net</span>, layout <span class="op">=</span> <span class="fu"><a href="https://r.igraph.org/reference/layout_in_circle.html">layout_in_circle</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="programming-prompt-0.5-points" class="level4" data-number="2.2.1"><h4 data-number="2.2.1" class="anchored" data-anchor-id="programming-prompt-0.5-points">
+<span class="header-section-number">2.2.1</span> Programming prompt (0.5 points)</h4>
+<p>Create and plot four different Erdős-Rényi graphs with four different values of <code>p</code>, two greater than 0.5 and two less than 0.5. Paste four different code blocks below that create networks with different values of <span class="math inline">\(p\)</span>. A stub for the first one is below.</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/">igraph</a></span><span class="op">)</span></span>
+<span><span class="co"># net &lt;- ???    &lt;= Your Code Here!</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">net</span>, layout <span class="op">=</span> <span class="fu"><a href="https://r.igraph.org/reference/layout_in_circle.html">layout_in_circle</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="PS1_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="writing-prompt-0.5-points" class="level4" data-number="2.2.2"><h4 data-number="2.2.2" class="anchored" data-anchor-id="writing-prompt-0.5-points">
+<span class="header-section-number">2.2.2</span> Writing prompt (0.5 points)</h4>
+<p>To close this problem, please describe what you noticed as <span class="math inline">\(p\)</span> changed. Specifically, answer 1. What happens if <span class="math inline">\(p\)</span> is very close to 0? 1. Is everyone always connected to at least one other individual for any value of <span class="math inline">\(p &gt; 0\)</span>?</p>
+</section><section id="student-response" class="level4" data-number="2.2.3"><h4 data-number="2.2.3" class="anchored" data-anchor-id="student-response">
+<span class="header-section-number">2.2.3</span> Student response</h4>
+<p>(DELETE THIS LINE AND WRITE YOUR RESPONSE STARTING HERE)</p>
+</section></section></section><section id="a-basic-diy-influencer-model-2-points" class="level2" data-number="3"><h2 data-number="3" class="anchored" data-anchor-id="a-basic-diy-influencer-model-2-points">
+<span class="header-section-number">3</span> A basic DIY influencer model (2 points)</h2>
+<p>The influencer model represents the hypothetical situation where <span class="math inline">\(N\)</span> individuals, performing a non-adaptive behavior, <span class="math inline">\(\neg A\)</span>, observe one other agent, the influencer, performing adaptive behavior <span class="math inline">\(A\)</span>. The <span class="math inline">\(\neg\)</span> symbol is a formal logic symbol indicating “negation of” or the “complement of”. The model assumes in general that the observers adopt <span class="math inline">\(A\)</span> with probability <span class="math inline">\(\alpha\)</span>. These abstract names can be customized for a system of interest. In the biking influencer example from class, the adaptive behavior was labeled <span class="math inline">\(B\)</span> for biking and any other commute behavior was <span class="math inline">\(N\)</span> for “not biking”. We use <span class="math inline">\(A\)</span> in the code below for this Problem Set.</p>
+<p>We will program a version of this ourselves here that is conceptually agent-based, in that each individual has an explicit representation in the model. However there are no individual, autonomous agents yet in the code. Each agent is just represented as a row in a table.</p>
+<p>In the final problem in this final problem set, below, you will use a recursive function to ignore individuals all together and consider the <em>mass action</em> that occurs on average on each time step.</p>
+<p>In Problem Set 2, we will implement the influencer model yet another, more general way, that we can follow for developing more complicated models. For now, let’s see how we can program the influencer model in a relatively simple way.</p>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/">purrr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'purrr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:igraph':
+
+    compose, simplify</code></pre>
+</div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:igraph':
+
+    as_data_frame, groups, union</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">run_influencer_model</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">N</span><span class="op">=</span><span class="fl">5</span>, <span class="va">adopt_rate</span> <span class="op">=</span> <span class="fl">0.2</span>, <span class="va">t_max</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="co"># Initialize influenced individuals' traits, time step, and ids.</span></span>
+<span>  <span class="va">prev_adopted_A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="va">N</span><span class="op">)</span></span>
+<span>  <span class="va">tbl_ret</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>agent_id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">N</span>, </span>
+<span>                    step <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">N</span><span class="op">)</span>,</span>
+<span>                    adopted_A <span class="op">=</span> <span class="va">prev_adopted_A</span></span>
+<span>                    <span class="op">)</span></span>
+<span>  <span class="co"># Initialize fixated to be FALSE, since at t=0 no influenced agents have adopted A</span></span>
+<span>  <span class="va">fixated</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></span>
+<span>  <span class="va">t</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span>  <span class="kw">while</span> <span class="op">(</span><span class="op">!</span><span class="va">fixated</span> <span class="op">||</span> <span class="op">(</span><span class="va">t</span> <span class="op">&gt;</span> <span class="va">t_max</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="co"># Probabilistically update adopted_A to be TRUE with probability adopt_rate (α)</span></span>
+<span>    <span class="va">new_adopted_A</span> <span class="op">&lt;-</span> </span>
+<span>      <span class="va">prev_adopted_A</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>        <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_vec</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">adopted</span><span class="op">)</span> <span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">adopted</span>, <span class="cn">TRUE</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">&lt;</span> <span class="va">adopt_rate</span><span class="op">)</span> <span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="va">prev_adopted_A</span> <span class="op">&lt;-</span> <span class="va">new_adopted_A</span></span>
+<span></span>
+<span>    <span class="co"># The influenced have fixated if all have adopted A</span></span>
+<span>    <span class="va">fixated</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span><span class="op">(</span><span class="va">new_adopted_A</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">new_adopted_A</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">fixated</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="va">new_tstep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>agent_id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">N</span>,</span>
+<span>                        step <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">N</span><span class="op">)</span>,</span>
+<span>                        adopted_A <span class="op">=</span> <span class="va">new_adopted_A</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="va">tbl_ret</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">tbl_ret</span>, <span class="va">new_tstep</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="va">t</span> <span class="op">&lt;-</span> <span class="va">t</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span> <span class="op">(</span><span class="va">tbl_ret</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Set up and run influencer model for N = 5.</span></span>
+<span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
+<span><span class="va">adopt_rate</span> <span class="op">&lt;-</span> <span class="fl">0.1</span></span>
+<span><span class="va">tbl_out_5</span> <span class="op">&lt;-</span> <span class="fu">run_influencer_model</span><span class="op">(</span><span class="va">N</span>, <span class="va">adopt_rate</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE FALSE FALSE FALSE
+[1] FALSE
+[1] FALSE FALSE  TRUE FALSE FALSE
+[1] FALSE
+[1]  TRUE FALSE  TRUE FALSE FALSE
+[1] FALSE
+[1]  TRUE FALSE  TRUE FALSE FALSE
+[1] FALSE
+[1]  TRUE FALSE  TRUE FALSE FALSE
+[1] FALSE
+[1]  TRUE FALSE  TRUE FALSE FALSE
+[1] FALSE
+[1]  TRUE FALSE  TRUE FALSE FALSE
+[1] FALSE
+[1]  TRUE FALSE  TRUE FALSE FALSE
+[1] FALSE
+[1]  TRUE FALSE  TRUE FALSE FALSE
+[1] FALSE
+[1]  TRUE  TRUE  TRUE FALSE FALSE
+[1] FALSE
+[1]  TRUE  TRUE  TRUE FALSE FALSE
+[1] FALSE
+[1]  TRUE  TRUE  TRUE FALSE  TRUE
+[1] FALSE
+[1]  TRUE  TRUE  TRUE FALSE  TRUE
+[1] FALSE
+[1]  TRUE  TRUE  TRUE FALSE  TRUE
+[1] FALSE
+[1] TRUE TRUE TRUE TRUE TRUE
+[1] TRUE</code></pre>
+</div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Plot counts over time using group_by and summarise functions.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="how-does-the-number-of-influenced-agents-n-change-the-time-to-fixation" class="level3" data-number="3.1"><h3 data-number="3.1" class="anchored" data-anchor-id="how-does-the-number-of-influenced-agents-n-change-the-time-to-fixation">
+<span class="header-section-number">3.1</span> How does the number of influenced agents, <span class="math inline">\(N\)</span>, change the time to fixation?</h3>
+<p><em>Problem:</em> Answer this question by selecting three different <span class="math inline">\(N\)</span> values and explaining your observations (2 points).</p>
+<p><em>Solution:</em> Write R code below followed by up to one paragraph explaining your observations.</p>
+</section></section><section id="recursive-influencer-model-2-points" class="level2" data-number="4"><h2 data-number="4" class="anchored" data-anchor-id="recursive-influencer-model-2-points">
+<span class="header-section-number">4</span> Recursive Influencer model (2 points)</h2>
+<p>The recursive influencer model has the following form:</p>
+<p><span class="math display">\[
+A_{t+1} = A_{t} + \alpha(N - A_{t})
+\]</span></p>
+<p>Use the tools provided in this Problem Set to create a function that takes three arguments, <span class="math inline">\(N\)</span>, <span class="math inline">\(\alpha\)</span>, and <span class="math inline">\(T\)</span>, where <span class="math inline">\(T\)</span> is the number of time steps to run.</p>
+<section id="how-does-increasing-alpha-affect-t" class="level3" data-number="4.1"><h3 data-number="4.1" class="anchored" data-anchor-id="how-does-increasing-alpha-affect-t">
+<span class="header-section-number">4.1</span> How does increasing <span class="math inline">\(\alpha\)</span> affect <span class="math inline">\(T\)</span>?</h3>
+<p><em>Problem:</em> Answer this question by selecting four different <span class="math inline">\(\alpha\)</span>, creating time series of counts of how many individuals are doing <span class="math inline">\(A\)</span> at each time step.</p>
+<p><em>Solution:</em> Write R code below followed by up to one paragraph explaining your observations.</p>
+</section></section><section id="references" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+</section></main><!-- /main column --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
