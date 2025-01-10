@@ -13,7 +13,9 @@ run_influencer_model <- function(N=5, adopt_rate = 0.2, t_max = 10) {
   # Initialize fixated to be FALSE, since at t=0 no influenced agents have adopted A
   fixated <- FALSE
   t <- 1
+
   while (!fixated || (t > t_max)) {
+
     # Probabilistically update adopted_A to be TRUE with probability adopt_rate (α)
     new_adopted_A <- 
       prev_adopted_A %>%
