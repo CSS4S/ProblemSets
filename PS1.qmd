@@ -14,10 +14,12 @@ editor:
     wrap: 80
 ---
 
+
 ## Hello, world! (2 points)
 
 When starting in any new language, it is a helpful tradition to write some form
-of "Hello, world!" Typically it looks like the following `hello_world` function that prints the numbers from 1 to N then prints "hello, world!".
+of "Hello, world!" Typically it looks like the following `hello_world` function
+that prints the numbers from 1 to N then prints "hello, world!".
 
 ```{r}
 hello_world <- function(N = 5) {
