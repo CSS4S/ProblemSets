@@ -1,0 +1,23 @@
+---
+title: "Problem 2.5: Adoption probabilities in well-mixed and socially-networked populations"
+---
+\newcommand\pla{{p^{LA}}}
+\newcommand\plai{{p^{LA}_i}}
+
+The assumption that a population is well-mixed means that the probability of interaction between individuals $i$ and $j$ is symmetric, i.e., 
+$$
+p_{ij} = p_{ji}.
+$$
+The well-mixed assumption means the probability that an individual doing $L$ partners with an individual doing $A$ is the same for all $i$:
+$$
+p^{LA}_i = p^{LA}_j
+$$
+
+Social networks are clearly not well-mixed.
+
+## Problem 2.5.1: Make random networks with $N=100$ and $A = 25$. How does the distribution of $$ change? 
+
+
+## Problem 2.5.2: Plot mean probability of exposure for all agents doing $L$
+
+Call the mean probability of exposure the expected value of $\plai$

@@ -1,0 +1,16 @@
+---
+title: "Problem 2.2: The Legacy-Adaptive-Legacy (LAL) diffusion model"
+---
+
+## Agent-based LAL (1 point)
+
+
+
+## Analytical calculations with LAL (1 point)
+
+
+### Diffusion rate at introduction when $t,~A_t \approx 0$ (0.5 points)
+
+
+### Equilibrium $A_t$, $\hat A$, as $t\to\infty$ (0.5 points)
+

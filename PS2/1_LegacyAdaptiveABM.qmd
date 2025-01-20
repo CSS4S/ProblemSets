@@ -1,0 +1,8 @@
+---
+title: "Problem 2.1: The Legacy-Adaptive (LA) diffusion model"
+---
+
+## Agent-based LA (1 point)
+
+
+## Recursion-based LA (1 point)
