@@ -1,8 +1,27 @@
 ---
 title: "Problem 2.1: The Legacy-Adaptive (LA) diffusion model"
 ---
+```{r setup, include=FALSE}
+
+# Load dependencies.
+library(tibble)
+library(dplyr)
+library(ggplot2)
+library(ggforce)
+library(igraph)
+library(forcats)
+library(netrankr)
+library(magrittr)
+
+source("../socmod.R")
+source("util.R")
+```
 
 ## Agent-based LA (1 point)
+
+```{r}
+la_model <- Model$new(lal_partner_selection, la_interaction, )
+```
 
 
 ## Recursion-based LA (1 point)
