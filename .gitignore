@@ -6,3 +6,6 @@
 *.html
 *_files
 */.quarto/
+
+/.quarto/
+build

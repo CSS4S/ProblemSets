@@ -1,5 +1,5 @@
 ---
-title: Problem sets splash page
+title: Problem sets index
 Author: Matt
 ---
 

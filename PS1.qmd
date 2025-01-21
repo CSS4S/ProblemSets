@@ -1,6 +1,6 @@
 ---
 title: "Problem set 1, problems 2 - 5 worth 8 points total"
-bibliography: "library.bib"
+bibliography: "problem_sets.bib"
 format:
   html:
     toc: true

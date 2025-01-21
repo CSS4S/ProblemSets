@@ -1,6 +1,6 @@
 ---
 title: "Adaptive social learning strategies: conformist learning and success-biased partner selection"
-bibliography: problem_sets.bib
+bibliography: ../problem_sets.bib
 ---
 
 

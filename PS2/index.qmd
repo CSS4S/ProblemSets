@@ -4,13 +4,13 @@ Author: Matt
 ---
 
 1. [Legacy-Adaptive Differential Equations and Agent-based
-   Model](PS2/1_LegacyAdaptiveABM.qmd)
+   Model](1_LegacyAdaptiveABM.html)
 1. [Legacy-Adaptive-Legacy $R_0$ and Equilibrium (recursive) and Agent-based
-   Model](PS2/2_LegacyAdaptiveLegacy.qmd)
+   Model](2_LegacyAdaptiveLegacy.html)
 1. [Creating small-world and preferential attachment networks and analyzing
    their average path length, clustering coefficient, and degree
-   distributions.](PS2/3_Networks.qmd)
+   distributions.](3_Networks.html)
 1. [_Conformist_ and _success-biased_ strategies for adaptive social
-   learning](PS2/4_AdaptiveSocialLearning.qmd)
+   learning](4_AdaptiveSocialLearning.html)
 1. [How social networks break the well-mixed and mass-action assumptions (Extra
-   credit for undergrads)](PS2/5_AdoptionProbabilities.qmd)
+   credit for undergrads)](5_AdoptionProbabilities.html)

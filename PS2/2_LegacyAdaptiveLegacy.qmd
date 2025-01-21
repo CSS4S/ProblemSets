@@ -1,6 +1,11 @@
 ---
 title: "Problem 2.2: The Legacy-Adaptive-Legacy (LAL) diffusion model"
 ---
+```{r setup, include=FALSE}
+
+# Load dependencies.
+source("../socmod.R")
+```
 
 
 ## Analytical calculations with LAL (1 point)
