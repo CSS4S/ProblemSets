@@ -1,6 +1,10 @@
 ---
 title: "Problem 2.1: The Legacy-Adaptive (LA) diffusion model"
+editor: 
+  markdown: 
+    wrap: 72
 ---
+
 ```{r setup, include=FALSE}
 
 # Load dependencies.
@@ -16,73 +20,187 @@ library(magrittr)
 source("util.R")
 ```
 
-This problem first summarizes the continuous-time, 
-differential equations version of the legacy-adaptive model intended for
-everyone, even those without a calculus course. It then introduces the student
-to agent-based modeling via the LA model after a quick primer on agent-based
-modeling.
+This problem first summarizes the continuous-time, differential
+equations version of the legacy-adaptive model intended for everyone,
+even those without a calculus course. It then introduces the student to
+agent-based modeling via the LA model after a quick primer on
+agent-based modeling.
 
 ## Continuous-time LA model (1 point)
 
-In this problem, you will learn about the continuous-time version of the legacy-adaptive model. "Continuous time" means that the difference between time _step_ $t$ and 
-the next time step $t+1$ becomes infinitessimally small. This enables us to use tools from calculus, the mathematical system for relating rates of change that describe many physical and biological phenomena, including the diffusion of adaptations which we use it for here. 
+In this problem, you will learn about the continuous-time version of the
+legacy-adaptive model. "Continuous time" means that the difference
+between time *step* $t$ and the next time step $t+1$ becomes
+infinitessimally small. This enables us to use tools from calculus, the
+mathematical system for relating rates of change that describe many
+physical and biological phenomena, including the diffusion of
+adaptations which we use it for here.
 
-You do not need to solve any differential equations yourselves, but you will
-need to write a function that uses the solution in the following problem. The
-differential equations for the continuous-time model are nearly identical to 
-the discrete-time recursion. Let's start with the recursion then sketch how we
-go from discrete to continuous time, which in essence summarizes the first few
-weeks of a Calculus I course. 
+You do not need to solve any differential equations yourselves, but you
+will need to write a function that uses the solution in the following
+problem. The differential equations for the continuous-time model are
+nearly identical to the discrete-time recursion. Let's start with the
+recursion then sketch how we go from discrete to continuous time, which
+glosses over the first few weeks of material in introductory calculus.
 
-The change in $A$, $\Delta A$, over $\Delta t = t + 1 - t = 1$
+### Discrete change in recursion, continuous (infinitesimal) change in differential equations
+
+In the recursion LA model, the change in $A$, $\Delta A$ from time step
+$t$ to time step $t+1$ is $$
+\Delta A = A_{t+1} - A_t = \alpha N \Pr(L,A)
+$$ {#eq-delta-A} where $\Pr(L,A) = \frac{L}{N}\frac{A}{N}$ is the
+probability an individual doing $L$ and another doing $A$ interact under
+the *well-mixed* assumption.
+
+::: column-margin
+$\cdot\quad$ The *well-mixed* assumption says that everyone in a
+population is equally likely to interact with one another. This means
+the probability of someone doing $L$ encountering someone else doing $A$
+is the same for all people doing $L$ (or vice-versa).
+:::
+
+Plug this probability in to @eq-delta-A and cancel an $N$ on top and
+bottom to get $$
+\Delta A = \frac{\alpha}{N} L A = \alpha' L A,
+$$ {#eq-delta-A-likeODE} where $\alpha' = \alpha / N$. Because we use
+$t$ to label time steps and assumed that time steps are separated by
+$\Delta t = 1$, we can multiply the right side of @eq-delta-A-likeODE by
+1 in the form of $\Delta t$: $$
+\Delta A = \alpha' LA \Delta t
+$$ {#eq-delta-A-preODE}
+
+::: column-margin
+$\cdot\quad$The general probability that a person doing behavior $b$
+interacts with a person doing $b'$ (read "b prime") $\Pr(b,b')$, i.e.
+$\Pr(L,A)$ for legacy-adaptive, $\Pr(L, L)$ for legacy-legacy, etc.
+:::
+
+Calculus, the foundation of differential equations, is the mathematics
+of rates of change, which was achieved through the following conceptual
+leap. In terms of our LA model, calculus works by assuming that
+$\Delta t$ becomes "infinitesimally small", written $\Delta t \to 0$.
+Before $\Delta t$ gets all the way to zero, we calculate $\Delta A$ over
+this infinitesimally small $\Delta t$. This infinitesimal $\Delta t$ is
+written $dt$, and the similarly infinitesimal $\Delta A$ is written
+$dA$. When $\Delta \to 0$, then, we replace $\Delta$ with $d$ and
+@eq-delta-A-preODE becomes $$
+dA = \alpha' L A dt
+$$ which is more commonly written $$
+\frac{dA}{dt} = \alpha' L A dt
+$$ {#eq-dAdt} representing the flow in of people previously doing $L$,
+with the coupled differential equation for $L$ differing only in sign of
+the right hand side, representing the flow of people away from doing
+$L$: $$
+\frac{dL}{dt} = - \alpha' L A dt.
 $$
-A_{t+1} - A_t = A_{t} + \Delta A = A_t + \alpha N (
+
+These equations can be solved by using the same substitution we used in
+the recursion to get a formula for $A_{t+1}$ that depended only on
+$A_t$, namely that $L = N - A$, so @eq-dAdt becomes
+
 $$
+\frac{dA}{dt} = \alpha' A(N - A).
+$$ {#eq-dAdt-noL}
+
+Calculus tells us that we can rearrange the differnetials like they were
+any other variable. What we want now is to arrange all $A$ terms to one
+side of the equation, and all $t$ terms to the other because this allows
+us to *integrate* the equation. We want to integrate the equation
+because this is the calculus procedure that converts rates of change of
+a variable to the accumulation of that variable. Rearranage @eq-dAdt-noL
+to get
+
+$$
+\frac{dA}{A(N - A)} = \alpha' dt.
+$$
+
+We integrate both sides of this equation, which is written
+
+$$
+\int \frac{dA}{A(N - A)} = \int \alpha' dt = \alpha't + C
+$$ {#eq-dA-integration}
+
+where $C$ called a constant of integration that must be determined by
+initial conditions for this problem, namely the value $A(t=0)$ and we
+used the fact that $\int a dx = ax + C$ where $a$ is any constant and
+$x$ is any dynamic variable. The integral on the left hand side can be
+integrated formally, i.e., without using a computer, but it's
+significantly more complicated. After integrating the left hand side of
+@eq-dA-integration it is still necessary to solve for $A$ in terms of
+$t$. See the [Course
+Notes](https://mt.digital/teaching/CSS4S/notes/#legacy-adaptive-legacy-lal-model)
+info panel currently called
+
+::: {style="color:red"}
+(change this =\>) Solving LA system of coupled differential equations
+:::
+
+It can be shown that after doing all that math we get the *logistic
+equation*,
+
+$$
+A(t) = \frac{N}{1 + \frac{N}{A_0}e^{-\alpha N t}},
+$$ {#eq-logistic-LA}
+
+where $A_0 = A(t = 0)$ is the initial condition.
+
+Britton (2003) explains in Ch. 3, p. 87, this is the same equation as
+single-species population dynamics in an ecosystem with a carrying
+capacity, $K$. In this case, $K = N$. See Britton Ch. 3 for even more
+detail on the family of compartmental susceptible-infected-recovered
+models that we have adapted for sustainable adaptations in the context
+of the field of mathematical biology.
+
+:::: column-margin
+::: {style="color:red"}
+finish the stuff in notes, or maybe put these in notes and reference
+them for students; nearly done just clean up to link with this
+:::
+::::
 
 ## Agent-based LA model (1 point)
 
-In this problem you get your first experience with agent-based modeling, using
-software tools provided for you in [`socmod.R`](../socmod.R) in the root
-directory. Agent-based modeling is a form of computational modeling where 
-individuals and their interactions are explicitly, mechanistically 
-represented in the form of
-computer code. We will match the well-mixed approximations as well as we can using
-agent-based modeling. In general, though, social networks break the well-mixed
-and mass-action assumptions, which we will see more explicitly in Problem
-5](5_AdoptionProbabilities.html). For now, please review the Primer on agent-based
-modeling, below. You can adapt code from the primer for Problem PS2.1.2 
-that follows.
-
+In this problem you get your first experience with agent-based modeling,
+using software tools provided for you in [`socmod.R`](../socmod.R) in
+the root directory. Agent-based modeling is a form of computational
+modeling where individuals and their interactions are explicitly,
+mechanistically represented in the form of computer code. We will match
+the well-mixed approximations as well as we can using agent-based
+modeling. In general, though, social networks break the well-mixed and
+mass-action assumptions, which we will see more explicitly in Problem
+5\](5_AdoptionProbabilities.html). For now, please review the Primer on
+agent-based modeling, below. You can adapt code from the primer for
+Problem PS2.1.2 that follows.
 
 ### Primer on agent-based modeling
 
-In agent-based modeling we need to define several entities and processes in 
-software to fully specify how the agent-based model will work. Together, these
-define an agent-based model:
-1. Environmental and ecological factors, including the payoff 
-   from doing Legacy and Adaptive behaviors, which could change over time.
-1. The _agents_, which are simulated people in the case of human social science.
-1. Social processes:
-   a. Partner selection
-   b. _Dyadic_ interaction
-1. Non-social, individual-level behavior change (e.g. in LAL agents drop the
-   adaptation with probability $\delta$)
+In agent-based modeling we need to define several entities and processes
+in software to fully specify how the agent-based model will work.
+Together, these define an agent-based model: 1. Environmental and
+ecological factors, including the payoff from doing Legacy and Adaptive
+behaviors, which could change over time. 1. The *agents*, which are
+simulated people in the case of human social science. 1. Social
+processes: a. Partner selection b. *Dyadic* interaction 1. Non-social,
+individual-level behavior change (e.g. in LAL agents drop the adaptation
+with probability $\delta$)
 
-To do agent-based modeling, we will use code currently located in the `socmod.R`
-file in the root directory. This approach combines object-oriented programming,
-characterized by explicit representations of classes of entities that define
-attributes and capacities of the entities. In this course, one of the entities are
-agents, representing people, who have cognitive and social capacities. We also
-define an `AgentBasedModel` class, which is a structured way to define and store
-information about agent-based models, including how partner selection, dyadic
-interaction, and model dynamics all work, under different parameters specified
-by the `params` attribute of `AgentBasedModel`.
+To do agent-based modeling, we will use code currently located in the
+`socmod.R` file in the root directory. This approach combines
+object-oriented programming, characterized by explicit representations
+of classes of entities that define attributes and capacities of the
+entities. In this course, one of the entities are agents, representing
+people, who have cognitive and social capacities. We also define an
+`AgentBasedModel` class, which is a structured way to define and store
+information about agent-based models, including how partner selection,
+dyadic interaction, and model dynamics all work, under different
+parameters specified by the `params` attribute of `AgentBasedModel`.
 
-Let's initialize and run a simple toy `AgentBasedModel` to see the different
-parts so they are more familiar when we use them to make the agent-based LA
-model below. We will create agents who switch between Legacy and Adaptive
-behaviors randomly at each time step, initialized with half of the agents doing
-the adaptive behavior (and therefore half doing legacy). 
+Let's initialize and run a simple toy `AgentBasedModel` to see the
+different parts so they are more familiar when we use them to make the
+agent-based LA model below. We will create agents who switch between
+Legacy and Adaptive behaviors randomly at each time step, initialized
+with half of the agents doing the adaptive behavior (and therefore half
+doing legacy).
 
 ```{r}
 # Source the agent-based modeling code from socmod.R in root project directory.
@@ -98,13 +216,9 @@ Legacy <- Behavior$new()
 
 ```
 
-
 ### Agents and agent-based modeling of social behavior
 
-
-
-
-First, 
+First,
 
 ### 
 
@@ -125,7 +239,4 @@ la_interaction <- function(learner, teacher, model) {
 la_model <- AgentBasedModel$new(lal_partner_selection, la_interaction)
 ```
 
-
 #### Compare adoption curves from the continuous-time and agent-based models (0.5 points)
-
-

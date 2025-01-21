@@ -1,3 +1,9 @@
+##
+# Computational social science modeling tools focused on social behavior.
+#
+# Author: Matthew A. Turner <maturner01@gmail.com>
+# Date: 2025-01-21
+#
 library(assertthat)
 library(R6)
 
