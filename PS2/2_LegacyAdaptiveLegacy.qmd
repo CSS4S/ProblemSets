@@ -2,15 +2,48 @@
 title: "Problem 2.2: The Legacy-Adaptive-Legacy (LAL) diffusion model"
 ---
 
-## Agent-based LAL (1 point)
-
-
 
 ## Analytical calculations with LAL (1 point)
 
+We can do some relatively simple algebra with the recursive LAL model to 
+predict whether 
 
 ### Diffusion rate at introduction when $t,~A_t \approx 0$ (0.5 points)
 
 
 ### Equilibrium $A_t$, $\hat A$, as $t\to\infty$ (0.5 points)
 
+First, follow _MSB_ pp. 95-97 to show that the _prevalence_ of the behavior $A$
+(i.e., the proportion of the population doing $A$)
+at equilibrium is 
+$$
+\hat a = \frac{\hat A}{N} = 
+$$
+
+Use the mathematics in this and the previous problem set as models for writing
+out in your own words the steps from . Make sure to explain why at equilibrium
+$\Delta A = 0$ and $A_{t+1} = A_t = \hat A$. Why isn't $A = 1$ a stable
+equilibrium? Explain in terms of  Use terminology that matches
+behavioral adoption, instead of epidemiological terminology. 
+Substitute the adoption rate, $\alpha$, for the
+transmissibility, $\tau$, and use the drop rate $\delta$ in place of the 
+recovery rate $\gamma$. 
+
+
+## Agent-based LAL analysis (1 point)
+
+
+### Plot several time series for different 
+
+```{r}
+lal_model_step <- function(model) {
+  
+}
+lal_model <- AgentBasedModel$new()
+```
+
+
+### Heatmap of equilibrium adoption $\hat A$ over $\alpha$ and $\delta$
+
+
+From our derivation above, we ahve 

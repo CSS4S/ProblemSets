@@ -17,11 +17,66 @@ source("../socmod.R")
 source("util.R")
 ```
 
-## Agent-based LA (1 point)
+This problem summarizes the continuous-time, differential equations version of the 
+legacy-adaptive model.
+
+
+## Continuous-time LA model (1 point)
+
+In this problem, you will learn about the continuous-time version of the legacy-adaptive model. "Continuous time" means that the difference between time _step_ $t$ and 
+the next time step $t+1$ becomes infinitessimally small. This enables us to use tools from calculus, the mathematical system for relating rates of change that describe many physical and biological phenomena, including the diffusion of adaptations which we use it for here. 
+
+You do not need to solve any differential equations yourselves, but you will
+need to write a function that uses the solution in the following problem. The
+differential equations for the continuous-time model are nearly identical to 
+the discrete-time recursion. Let's start with the recursion then sketch how we
+go from discrete to continuous time, which in essence summarizes the first few
+weeks of a Calculus I course. 
+
+The change in $A$, $\Delta A$, over $\Delta t = t + 1 - t = 1$
+$$
+A_{t+1} - A_t = A_{t} + \Delta A = A_t + \alpha N (
+$$
+
+## Agent-based LA model (1 point)
+
+In this problem you get your first experience with agent-based modeling, using
+software tools provided for you in [`socmod.R`](../socmod.R) in the root
+directory. Agent-based modeling is a form of computational modeling where 
+individuals and their interactions are explicitly, mechanistically 
+represented in the form of
+computer code. We will match the well-mixed approximations as well as we can using
+agent-based modeling. At this point, though, we _relax_ the mass-action 
+assumption that 
+
+
+### Agents and agent-based modeling of social behavior
+
+
+
+
+First, 
+
+### 
+
+#### Specify the LA agent-based model (0.5 points)
 
 ```{r}
-la_model <- Model$new(lal_partner_selection, la_interaction, )
+
+partner_selection <- function(learner, model) {
+  # YOUR CODE HERE.
+}
+
+la_interaction <- function(learner, teacher, model) {
+  if (runif() < model$adoption_rate) {
+    # YOUR CODE HERE.
+  }
+}
+
+la_model <- AgentBasedModel$new(lal_partner_selection, la_interaction)
 ```
 
 
-## Recursion-based LA (1 point)
+#### Compare adoption curves from the continuous-time and agent-based models (0.5 points)
+
+

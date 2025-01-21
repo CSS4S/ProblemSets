@@ -8,7 +8,8 @@ Behavior <- R6Class(classname = "Behavior", public = list(
 
 
 Agent <- R6Class(classname="Agent", public = list(
-  behavior = NA,
+  curr_behavior = NA,
+  prev_behavior = NA,
   neighborhood = vector(mode = "integer", length = 0),
   name = NA
 ))
@@ -33,7 +34,7 @@ AgentBasedModel <- R6Class(classname="AgentBasedModel",
       invisible(self)
     },                    
     initialize_network = function(edges, self) {},
-    initialization = 
+    initialize = 
       function(partner_selection = NULL, interaction = NULL, model_step = NULL, 
                agents = NULL, network = NULL, ...) {
 
@@ -105,12 +106,23 @@ run <- function(
 # Adapted from 
 # https://github.com/USCCANA/netdiffuseR/blob/1efc0be4539d23ab800187c73551624834038e00/src/rgraph.cpp#L90
 # Difference here is we'll only use undirected for now, so need to adjust by 
-# default (see also NetLogo routine in Smaldino Ch. 9 p. 266).
-ring_lattice <- function(N, k, directed = FALSE) {
-  assert_that(N - 1 > k, msg = "Lattice degree, k, can be at most N-1.")
+# default (see also NetLogo routine in Smaldino Ch. 9 p. 266). 
+#
+# Beacaus igraph is flexible, it will add duplicate edges, so we have to check
+# to make sure an edge does not exist between two nodes before adding it, using
+# the `igraph::are_adjacent` function ("adjacent" means there is an edge between two
+# nodes in an undirected graph–in a directed graph the definition is subjective,
+# i.e., v1 and v2 are sometimes defined as adjacent if there's an edge from
+# v1 to v2, and others define adjacency as an edge from v2 to v1). 
+regular_ring <- function(N, k, directed = FALSE) {
+
+  # Check that lattice parameters satisfy listed conditions below.
+  assert_that(N - 1 >= k, msg = "Lattice degree, k, can be at most N-1.")
+  assert_that(k %% 2 == 0, msg = "Lattice degree, k, must be even.")
   assert_that(!directed, msg = "Directed lattice not yet implemented")
 
-  ret_lattice <- make_empty_graph(N, directed = directed)
+  # Initialize an empty graph to which we add edges.
+  ret_lattice <- igraph::make_empty_graph(N, directed = directed)
 
   # Iterate over all agents, making links between k/2 neighbors with lesser
   # agent_idx and k/2 neighbors with greater agent_idx.
@@ -120,27 +132,34 @@ ring_lattice <- function(N, k, directed = FALSE) {
 
       # The neighbor on the first side.
       neighbor_side_1 <- a_idx + jj 
-
       if (neighbor_side_1 > N) {
         neighbor_side_1 <- neighbor_side_1 - N
       }
 
+      # The neighbor on the second side.
       neighbor_side_2 <- a_idx - jj
       if (neighbor_side_2 <= 0) {
         neighbor_side_2 <- neighbor_side_2 + N
       }
 
-      if (!igraph::are_adjacent(ret_lattice, a_idx, neighbor_side_1)) {
-        ret_lattice <- igraph::add_edges(ret_lattice, c(a_idx, neighbor_side_1))
-      }
-      if (!igraph::are_adjacent(ret_lattice, a_idx, neighbor_side_2)) {
-        ret_lattice <- igraph::add_edges(ret_lattice, c(a_idx, neighbor_side_2))
-      }
+      # Add first edge if not already present.
+      ret_lattice <- add_unique_edge(ret_lattice, a_idx, neighbor_side_1)
 
+      # Add second edge if not already present.
+      ret_lattice <- add_unique_edge(ret_lattice, a_idx, neighbor_side_2)
     }
-
-    a_idx <- a_idx + 1
   }
 
   return (ret_lattice)
+}
+
+
+# Add an undirected edge from v1 to v2 to graph g if it does not already exist.
+add_unique_edge <- function(g, v1, v2) {
+  
+  if (!igraph::are_adjacent(g, v1, v2)) {
+      g <- igraph::add_edges(g, c(v1, v2))
+  }
+
+  return (g)
 }

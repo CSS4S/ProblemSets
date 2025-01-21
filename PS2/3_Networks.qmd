@@ -1,4 +1,80 @@
 ---
-title: "Networks"
-author: "Matthew A. Turner"
+title: "Average path lengths, clustering, and degree distributions in small-world and preferential attachment networks"
+bibliography: "../problem_sets.bib"
 ---
+
+```{r setup, include=FALSE}
+library(dplyr)
+library(forcats)
+library(ggplot2)
+library(tibble)
+```
+
+## Problem PS2.3.1: creating small-world and preferential attachment networks
+
+1.  Create a new R file in the PS2 directory called `{mySUNetID}_networks.R` where you should put in your own SU Net ID before the underscore. For me it'd be `maturner_networks.R`.
+2.  Add the following functions to your `{mySUNetID}_networks.R` file:
+    1.  `make_smallworld_network`, which will do as it says, create a small-world network, starting from a regular lattice network (see `socmod.R` in the ProblemSets root directory). Follow the "Small-world network algorithm" on p. 272 of *Modeling Social Behavior* (Smaldino, 2023).
+    2.  `make_preferential_attachment`, following the preferential attachment algorithm on p. 282 of *Modeling Social Behavior.*
+
+### PS2.3.1.1: Small-world networks.
+
+Small-world networks are created by first creating a regular lattice, then randomly rewiring each edge with probability $p,$ the *rewiring probability*.
+
+### PS2.3.1.2: Preferential attachment
+
+Preferential attachment networks are created by incrementally adding new nodes to a network
+
+## Problem PS2.3.2: calculate average path length, degree distribution, and clustering in various small-world and preferential attachment networks
+
+### 3.2.1: Recreate the classic plot of average path length and clustering
+
+The plot in Figure 9.9 on p. 273 of *Modeling Social Behavior* is a classic one that was originally presented by @Watts1998. Now it is your turn to recreate it. The plot shows how the global clustering coefficient, $C$ (Equation 9.8 on p. 271 in *Modeling Social Behavior*), and the average path length, $L$ (Equation 9.6 on p. 270 in *Modeling Social Behavior*), change as $p$ increases from 0 (unchanged regular lattice) to 1 (fully random).
+
+Note that the x-axis is logarithmic, which can be achieved by specifying `log10` on the x aesthetic in the `ggplot` in the following code block. Edit this block to use your calculations of $L$ and $C$ instead of the fake ones in `fake_smallworld_L_C` the example below.
+
+You will probably want to create one or a few functions to calculate the average path length (using the [`mean_distance` function in igraph](https://igraph.org/r/doc/distances.html)) and the clustering coefficient (using the [`transitivity` function in igraph](https://igraph.org/r/doc/transitivity.html)). 
+
+```{r}
+
+# Create a vector of 20 rewiring probabilities that are
+# evenly-spaced on a logarithmic scale from 1/1000 to 1
+# using the built-in R function, `seq`.
+rewire_probs <- 10^seq(-3.0, 0.0, length.out = 20)
+
+# Set number of networks to generate for each rewire probability.
+N_samples <- 20
+
+# Create a column called "Measure" to indicate which of the
+# two measures, "L" and "C", the "Value" column corresponds to.
+Measure <- as_factor(
+  c(rep("L", N_samples*length(rewire_probs)),
+    rep("C", N_samples*length(rewire_probs)))
+)
+
+# Need to repeat probabilities over N_samples times number of Measures (2).
+rewire_probs_col <- rep(rewire_probs, N_samples*2)
+
+# Make fake values drawn from a uniform distribution over (0, 1) for L and (0, 2)
+# for C.
+N_probs <- length(rewire_probs)
+fake_values <- c(runif(N_samples*N_probs), 2*runif(N_samples*N_probs))
+
+fake_smallworld <- tibble(p = rewire_probs_col,
+                          Measure = Measure,
+                          Value = fake_values)
+
+fake_smallworld_means <- 
+  group_by(fake_smallworld, p, Measure) %>%
+  summarize(MeanVal = mean(Value))
+
+ggplot(fake_smallworld_means, aes(x=log10(p), y=MeanVal, color=Measure)) + 
+  geom_point() + theme_classic() + 
+  scale_x_continuous(breaks = c(-3, -2, -1, 0), 
+                     labels=c(0.001, 0.01, 0.1, 1.0))
+```
+
+
+### 3.2.2 
+
+

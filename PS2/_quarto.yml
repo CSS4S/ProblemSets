@@ -1,4 +1,6 @@
 project:
   type: default
   output-dir: _output
-  
+format: 
+  html:
+    code-link: true

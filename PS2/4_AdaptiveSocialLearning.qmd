@@ -9,10 +9,13 @@ In the LAL model, individuals partner randomly with neighbors. Humans, and other
 1. _Conformity_ is a heuristic that can help when one's private knowledge or predictions of which behavior is best conflicts with social information, _conforming_ can help by defaulting to adopt the behavior done by the largest number of people [@Kendal2004;@Morgan2012a].
 2. _Success-biased_ partner selection: tendency to seek teachers receiving greater benefits.
 
-## Social learning with conformity
+## Social learning with conformity (1 point)
 
 
 
-## Social learning with success-biased teacher selection
+## Social learning with success-biased teacher selection (1 point)
 
 
+In this section, define the success-biased social learning model to bias
+partner selection. Specifically, write a `partner_selection` function that
+weights neighbors by their _fitness_. For this you will need to 
