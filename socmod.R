@@ -3,7 +3,8 @@ library(R6)
 
 
 Behavior <- R6Class(classname = "Behavior", public = list(
-  payoff = NA
+  payoff = NA,
+  initialize = function(payoff = 1.0) {self$payoff = payoff}
 ))
 
 
@@ -11,7 +12,15 @@ Agent <- R6Class(classname="Agent", public = list(
   curr_behavior = NA,
   prev_behavior = NA,
   neighborhood = vector(mode = "integer", length = 0),
-  name = NA
+  fitness = NA,
+  name = NA,
+  initialize = function(curr_behavior, fitness = NA, name = NA) {
+    self$curr_behavior = curr_behavior
+  },
+  add_neighbors = function(neighbors) {
+    
+  }
+
 ))
 
 
@@ -33,7 +42,15 @@ AgentBasedModel <- R6Class(classname="AgentBasedModel",
       self$agents <- c(self$agents, agents_to_add)
       invisible(self)
     },                    
-    initialize_network = function(edges, self) {},
+    initialize_network = function(edges) {
+      # Create the network based on the edges and set `network` attribute.
+
+      # Read and store neighbors for each agent so they 
+      # don't have to be looked up every time.
+      for (agent in self$agents) {
+        agent$neighbors <- c(1)  ## XXX FIX THIS ##
+      }
+    },
     initialize = 
       function(partner_selection = NULL, interaction = NULL, model_step = NULL, 
                agents = NULL, network = NULL, ...) {

@@ -36,7 +36,6 @@ Note that the x-axis is logarithmic, which can be achieved by specifying `log10`
 You will probably want to create one or a few functions to calculate the average path length (using the [`mean_distance` function in igraph](https://igraph.org/r/doc/distances.html)) and the clustering coefficient (using the [`transitivity` function in igraph](https://igraph.org/r/doc/transitivity.html)). 
 
 ```{r}
-
 # Create a vector of 20 rewiring probabilities that are
 # evenly-spaced on a logarithmic scale from 1/1000 to 1
 # using the built-in R function, `seq`.

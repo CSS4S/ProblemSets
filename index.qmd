@@ -1,0 +1,15 @@
+---
+title: Problem sets splash page
+Author: Matt
+---
+
+
+- Problem Set 1 is in a single .qmd file in the root directory,
+  [PS1.qmd](PS1.html). It is due 29 January 2025 before the start of class at
+  11:30 AM.
+- Problem Set 2 consists of [five .qmd](PS2/) files in the `PS2` directory. It
+  is due 5 February 2025 before the start of class at 11:30 AM.
+- Problem Set 3 will be released 5 February 2025. It will be due 19 February
+  before the start of class at 11:30 AM.
+- Problem Set 4 will be released 19 February 2025. It will be due 5 March 2025
+  before the start of class at 11:30 AM.

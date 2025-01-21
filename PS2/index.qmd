@@ -1,0 +1,16 @@
+---
+title: "Problem Set 2 Index"
+Author: Matt
+---
+
+1. [Legacy-Adaptive Differential Equations and Agent-based
+   Model](PS2/1_LegacyAdaptiveABM.qmd)
+1. [Legacy-Adaptive-Legacy $R_0$ and Equilibrium (recursive) and Agent-based
+   Model](PS2/2_LegacyAdaptiveLegacy.qmd)
+1. [Creating small-world and preferential attachment networks and analyzing
+   their average path length, clustering coefficient, and degree
+   distributions.](PS2/3_Networks.qmd)
+1. [_Conformist_ and _success-biased_ strategies for adaptive social
+   learning](PS2/4_AdaptiveSocialLearning.qmd)
+1. [How social networks break the well-mixed and mass-action assumptions (Extra
+   credit for undergrads)](PS2/5_AdoptionProbabilities.qmd)
