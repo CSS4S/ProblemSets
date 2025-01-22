@@ -39,20 +39,27 @@ adaptations which we use it for here.
 You do not need to solve any differential equations yourselves, but you
 will need to write a function that uses the solution in the following
 problem. The differential equations for the continuous-time model are
-nearly identical to the discrete-time recursion. 
+nearly identical to the discrete-time recursion.
 
-Please see the [derivation in the Course Notes](https://mt.digital/teaching/CSS4S/notes/#legacy-adapt) of the continuous-time equation for $A(t)$ ([Equation 7](https://mt.digital/teaching/CSS4S/notes/#eq-logistic-LA) in the course notes):
-$$
+Please see the [derivation in the Course
+Notes](https://mt.digital/teaching/CSS4S/notes/#legacy-adapt) of the
+continuous-time equation for $A(t)$ ([Equation
+7](https://mt.digital/teaching/CSS4S/notes/#eq-logistic-LA) in the
+course notes): $$
 A(t) = \frac{N}{1 + \frac{N}{A_0}e^{-\alpha N t}},
 $$ {#eq-logistic-LA}
 
-Write an R function called `adoption_total` that returns the value of $A(t)$ given parameters $N$, $A_0$, and $\alpha$. The function signature should look something like this:
+Write an R function called `adoption_total` that returns the value of
+$A(t)$ given parameters $N$, $A_0$, and $\alpha$. The function signature
+should look something like this:
 
 ```{r}
 adoption_total <- function(t, A_0 = 5, N = 100, alpha = 0.2) {
   # YOUR CODE HERE
 }
 ```
+
+Create
 
 ## Agent-based LA model (1 point)
 
@@ -68,53 +75,7 @@ mass-action assumptions, which we will see more explicitly in [Problem
 agent-based modeling, below. You can adapt code from the primer for
 Problem PS2.1.2 that follows.
 
-### Primer on agent-based modeling
-
-In agent-based modeling we need to define several entities and processes
-in software to fully specify how the agent-based model will work.
-Together, these define an agent-based model: 
-
-1. Environmental and ecological factors, including the payoff from doing Legacy and Adaptive behaviors, which could change over time. 
-1. The *agents*, which are simulated people in the case of human social science. 
-1. Social processes: 
-  a. Partner selection  
-  b. *Dyadic* interaction 
-1. Non-social, individual-level behavior change (e.g. in LAL agents drop the adaptation with probability $\delta$)
-
-To do agent-based modeling, we will use code currently located in the
-`socmod.R` file in the root directory. This approach combines
-object-oriented programming, characterized by explicit representations
-of classes of entities that define attributes and capacities of the
-entities. In this course, one of the entities are agents, representing
-people, who have cognitive and social capacities. We also define an
-`AgentBasedModel` class, which is a structured way to define and store
-information about agent-based models, including how partner selection,
-dyadic interaction, and model dynamics all work, under different
-parameters specified by the `params` attribute of `AgentBasedModel`.
-
-Let's initialize and run a simple toy `AgentBasedModel` to see the
-different parts so they are more familiar when we use them to make the
-agent-based LA model below. We will create agents who switch between
-Legacy and Adaptive behaviors randomly at each time step, initialized
-with half of the agents doing the adaptive behavior (and therefore half
-doing legacy).
-
-```{r}
-# Source the agent-based modeling code from socmod.R in root project directory.
-source("../socmod.R")
-
-# Define Legacy and Adaptive behaviors with different payoffs.
-# Until we get to success-biased social learning strategies, payoffs are irrelevant.
-# Adaptive behavior yields 0.2 more "payoff" than default/baseline payoff 1.0.
-Adaptive <- Behavior$new(payoff = 1.2)  
-# The Legacy behavior yields the default/baseline payoff, 1.0.
-Legacy <- Behavior$new() 
-
-
-```
-
 ### Agents and agent-based modeling of social behavior
-
 
 #### Specify the LA agent-based model (0.5 points)
 
@@ -132,7 +93,7 @@ la_interaction <- function(learner, teacher, model) {
 la_model <- AgentBasedModel$new(lal_partner_selection, la_interaction)
 ```
 
-#### Compare adoption curves from a few runs of the continuous-time and agent-based models (0.5 points)
+#### Compare adoption curves from continuous-time and agent-based models (0.5 points)
 
-
-
+In this problem, create three time series for both the continuous-time
+and agent-based models.

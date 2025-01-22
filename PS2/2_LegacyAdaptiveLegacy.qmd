@@ -11,32 +11,44 @@ source("../socmod.R")
 ## Analytical calculations with LAL (1 point)
 
 We can do some relatively simple algebra with the recursive LAL model to 
-predict whether 
-
-### Diffusion rate at introduction when $t,~A_t \approx 0$ (0.5 points)
+predict the equilibrium value of adoption.
 
 
-### $\hat A$, as $t\to\infty$ (0.5 points)
+### Derive the equilibrium adoption level, $\hat A$ (0.5 points)
 
-First, follow _MSB_ pp. 95-97 to show that the _prevalence_ of the behavior $A$
-(i.e., the proportion of the population doing $A$)
-at equilibrium is 
+First, follow _MSB_ Section 4.4, pp. 95-97, to show that the _prevalence_ 
+of the behavior $A$ (i.e., the proportion of the population doing $A$) at 
+equilibrium is 
 $$
-\ahat = \frac{\hat A}{N} = 
+\frac{\hat A}{N} = 1 - \frac{\delta}{\alpha}.
 $$
 
-Use the mathematics in this and the previous problem set as models for writing
-out in your own words the steps from . Make sure to explain why at equilibrium
-$\Delta A = 0$ and $A_{t+1} = A_t = \hat A$. Why isn't $A = 1$ a stable
-equilibrium? Explain in terms of  Use terminology that matches
-behavioral adoption, instead of epidemiological terminology. 
+Use the source document mathematics in this, the previous problem set, and
+see also the [source document for the Course
+Notes](https://mt.digital/teaching/CSS4S/notes/) as models for writing
+mathematics using \LaTeX commands. 
+
+
+### Explaining stable and unstable equilibria (0.5 points)
+
+Next, explain why equilibrium means that $\Delta A = 0$, again using _MSB_
+Section 4.4. Use terminology that matches
+the adoption of adaptive behaviors instead of epidemiological terminology. 
 Substitute the adoption rate, $\alpha$, for the
 transmissibility, $\tau$, and use the drop rate $\delta$ in place of the 
 recovery rate $\gamma$. 
 
+- Make sure to specifically address why $A = \hat A$ is a _stable_ equilibrium,
+  but $A = 0$ is not, even though $\Delta A = 0$ when $A = 0$. 
+- Support your explanation using the two plots from Figure 4.9 using the `hline`
+  function in `ggplot2` to draw the horizontal line at 0.0 in your plot of
+  $\Delta A$ over $A$ (left plot in Figure 4.9 of *MSB*) and at $A = \hat A =
+  0.75$ (right plot).
+
 
 ## Agent-based LAL analysis (1 point)
 
+Now 
 
 ### Plot several time series for different 
 
@@ -47,8 +59,4 @@ lal_model_step <- function(model) {
 lal_model <- AgentBasedModel$new()
 ```
 
-
-### Heatmap of equilibrium adoption $\hat A$ over $\alpha$ and $\delta$
-
-
-From our derivation above, we ahve 
+### 

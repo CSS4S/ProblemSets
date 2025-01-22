@@ -17,7 +17,8 @@ Behavior <- R6Class(classname = "Behavior", public = list(
 Agent <- R6Class(classname="Agent", public = list(
   curr_behavior = NA,
   prev_behavior = NA,
-  neighbors = vector(mode = "integer", length = 0),
+  # neighbors = vector(mode = "integer", length = 0),
+  neighbors = NA,
   fitness = NA,
   name = NA,
   initialize = function(curr_behavior, fitness = NA, name = NA) {
@@ -34,6 +35,7 @@ partner_selection_default = function(agent) {}
 interaction_default  = function(agent1, agent2, model) {}
 model_step_default        = function(model) {}
 
+
 AgentBasedModel <- R6Class(classname="AgentBasedModel",
   public = list(
     agents = c(), 
@@ -47,15 +49,15 @@ AgentBasedModel <- R6Class(classname="AgentBasedModel",
       self$agents <- c(self$agents, agents_to_add)
       invisible(self)
     },                    
-    initialize_network = function(edges) {
-      # Create the network based on the edges and set `network` attribute.
+    # initialize_network = function(edges) {
+    #   # Create the network based on the edges and set `network` attribute.
 
-      # Read and store neighbors for each agent so they 
-      # don't have to be looked up every time.
-      for (agent in self$agents) {
-        agent$neighbors <- c(1)  ## XXX FIX THIS ##
-      }
-    },
+    #   # Read and store neighbors for each agent so they 
+    #   # don't have to be looked up every time.
+    #   for (agent in self$agents) {
+    #     agent$neighbors <- c(1)  ## XXX FIX THIS ##
+    #   }
+    # },
     initialize = 
       function(partner_selection = NULL, interaction = NULL, model_step = NULL, 
                agents = NULL, network = NULL, ...) {
@@ -75,53 +77,76 @@ AgentBasedModel <- R6Class(classname="AgentBasedModel",
         # if no agents provided. If agents provided but not network, 
         # make a complete, undirected network.
         if (!is.null(agents)) {
-          self$agents <- agents
+
           if (is.null(network)) {
             self$network <- igraph::make_full_graph(length(agents))
+          } else {
+            for (agent_idx in 1:length(agents)) {
+              agents[[agent_idx]]$neighbors <- igraph::neighbors(network, agent_idx)
+            }
           }
-          # 
-          for (agent in self$agents) {
-          }
+
+          self$agents <- agents
         }
 
         # Convert keyword arguments after model_step to parameters in named list.
         self$params = list(...)
 
         invisible(self)
-      }
-  ), 
-  private = list(
+      },
     .full_step = function() {
       for (learner in self$agents) {
-        teacher <- self$partner_selection(agent)
+        teacher <- self$partner_selection(agent, self)
         self$interaction(learner, teacher, self)
         self$model_step(self)
+        self$step <- self$step + 1
       }
     }
+  ), 
+  private = list(
   )
 
 )
 
 
-run <- function(
-    model, 
-    stop_cond = function(max_t, model) { return (model$step >= max_t) }
-  ) {
+run <- function(model, partner_selection, interaction, model_step, max_t) {
+
+  # Currently define the stop_cond by the max time step. 
+  stop_cond <- function(model, max_t) { return (model$step >= max_t) }
 
   # Check that required components are not null
   check_not_null <- 
     c(model$partner_selection, model$interaction, model$model_step, model$network)
+
   for (component in check_not_null)
     assert_that(!is.null(component))
 
   # Check that there are some agents.
   assert_that(length(model$agents) > 0)
-  
-  while (!stop_cond(model)) {
-    model$.full_step()
+
+  # Initialize output tibble.
+  output <- tibble(t = 0:max_t,
+                   A = rep(0.0, max_t + 1))
+
+  adoption <- function(agents) {
+    sum(purrr::map_vec(agents, \(a) { ifelse(a$curr_behavior == "Adaptive", 1, 0) }))
   }
 
-  return (model)
+  output[1, ] <- list(0, adoption(model$agents))
+  
+  while (!stop_cond(model, max_t)) {
+
+    for (learner in sample(model$agents)) {
+      teacher <- partner_selection(learner, model)
+      interaction(learner, teacher, model)
+    }
+    model_step(model)
+    model$step <- model$step + 1
+
+    output[model$step + 1, ] <- list(model$step, adoption(model$agents))
+  }
+
+  return (output)
 }
 
 
@@ -136,7 +161,7 @@ run <- function(
 # nodes in an undirected graph–in a directed graph the definition is subjective,
 # i.e., v1 and v2 are sometimes defined as adjacent if there's an edge from
 # v1 to v2, and others define adjacency as an edge from v2 to v1). 
-regular_ring <- function(N, k, directed = FALSE) {
+regular_lattice <- function(N, k, directed = FALSE) {
 
   # Check that lattice parameters satisfy listed conditions below.
   assert_that(N - 1 >= k, msg = "Lattice degree, k, can be at most N-1.")
