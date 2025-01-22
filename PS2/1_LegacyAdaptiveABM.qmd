@@ -59,7 +59,8 @@ adoption_total <- function(t, A_0 = 5, N = 100, alpha = 0.2) {
 }
 ```
 
-Create
+You will use this in the next problem to compare plots of this
+continuous, "closed-form" version of $A(t)$ to agent-based simulations.
 
 ## Agent-based LA model (1 point)
 
@@ -69,15 +70,15 @@ the root directory. Agent-based modeling is a form of computational
 modeling where individuals and their interactions are explicitly,
 mechanistically represented in the form of computer code. We will match
 the well-mixed approximations as well as we can using agent-based
-modeling. In general, though, social networks break the well-mixed and
-mass-action assumptions, which we will see more explicitly in [Problem
-5](5_AdoptionProbabilities.html). For now, please review the Primer on
-agent-based modeling, below. You can adapt code from the primer for
-Problem PS2.1.2 that follows.
+modeling.
 
 ### Agents and agent-based modeling of social behavior
 
 #### Specify the LA agent-based model (0.5 points)
+
+For this part of the problem, adapt the \[toy ABM example in the Course
+Notes\](<https://mt.digital/teaching/CSS4S/notes/#agent-based-modeling>)
+to implement an agent-based LA model.
 
 ```{r}
 partner_selection <- function(learner, model) {
@@ -90,10 +91,20 @@ la_interaction <- function(learner, teacher, model) {
   }
 }
 
-la_model <- AgentBasedModel$new(lal_partner_selection, la_interaction)
 ```
 
 #### Compare adoption curves from continuous-time and agent-based models (0.5 points)
 
-In this problem, create three time series for both the continuous-time
-and agent-based models.
+In this problem, create three time series plots of adoption of the
+adaptive behavior over time for both the continuous-time and agent-based
+models, for a total of six time series. \
+\
+Hypothesize first how you think different combinations of adoption and
+drop rates will affect the shape of the adoption curves. Also explain
+your expectations about how the continuous-time and agent-based models
+will be similar or different.
+
+Put your code with resulting plots below. After that, explain whether
+your hypotheses were correct or not. Close with a few sentences
+explaining the difference between continuous-time and agent-based
+models, reflecting on what you observed in the plots.\

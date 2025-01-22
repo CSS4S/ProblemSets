@@ -10,7 +10,7 @@ library(ggplot2)
 library(tibble)
 ```
 
-## Problem PS2.3.1: creating small-world and preferential attachment networks
+## Problem PS2.3.1: creating small-world and preferential attachment networks (1 point)
 
 1.  Create a new R file in the PS2 directory called `{mySUNetID}_networks.R` where you should put in your own SU Net ID before the underscore. For me it'd be `maturner_networks.R`.
 2.  Add the following functions to your `{mySUNetID}_networks.R` file:
@@ -18,9 +18,9 @@ library(tibble)
        small-world network, starting from a regular lattice network. Use the `socmod.R` in the ProblemSets root directory. Follow the "Small-world network algorithm" on p. 272 of *Modeling Social Behavior* (Smaldino, 2023).   
     2.  `make_preferential_attachment`, following the preferential attachment algorithm on p. 282 of *Modeling Social Behavior.*
 
-## Problem PS2.3.2: calculate average path length, degree distribution, and clustering in various small-world and preferential attachment networks
+## Problem PS2.3.2: calculate average path length, degree distribution, and clustering in various small-world and preferential attachment networks (1 point total)
 
-### 3.2.1: Recreate the classic plot of average path length and clustering
+### 3.2.1: Recreate the classic plot of average path length and clustering (0.5 points)
 
 The plot in Figure 9.9 on p. 273 of *Modeling Social Behavior* is a classic one that was originally presented by @Watts1998. Now it is your turn to recreate it. The plot shows how the global clustering coefficient, $C$ (Equation 9.8 on p. 271 in *Modeling Social Behavior*), and the average path length, $L$ (Equation 9.6 on p. 270 in *Modeling Social Behavior*), change as $p$ increases from 0 (unchanged regular lattice) to 1 (fully random).
 
@@ -68,13 +68,12 @@ ggplot(fake_smallworld_means, aes(x=log10(p), y=MeanVal, color=Measure)) +
 ```
 
 
-### 3.2.2 Compare degree distributions of 
+### 3.2.2 Compare degree distributions of small-world and preferential attachment networks (0.5 points)
 
-Create at least two networks with $N=100$ individuals using your small-world network creation function and
-one network using the preferential attachment algorithm. One of the small-world
-networks should use a smaller rewiring probability (e.g., $p = 0.2$) and the other should 
-use a larger rewiring probability (e.g., $p = 0.8$).
-Keep $k$ the same for each small-world network so you can inspect the effect of
+Create at least two networks with $N=100$ individuals using your small-world network creation function and one network using the preferential attachment algorithm. One of the small-world networks should use a smaller rewiring probability (e.g., $p = 0.2$) and the other should  use a larger rewiring probability (e.g., $p = 0.8$). Keep $k$ the same for each small-world network so you can inspect the effect of rewiring probability.
 
 Plot the degree distributions of each of these three networks, following the
-steps shown in the . If there are differences 
+steps shown in the [Medici example in the Course Notes](https://mt.digital/teaching/CSS4S/notes/#analysis-of-the-medici-family). 
+Explain what is similar or different between the degree distributions for the 
+three networks you created.
+
