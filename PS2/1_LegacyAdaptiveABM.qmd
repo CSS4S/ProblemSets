@@ -31,7 +31,7 @@ agent-based modeling.
 In this problem, you will learn about the continuous-time version of the
 legacy-adaptive model. "Continuous time" means that the difference
 between time *step* $t$ and the next time step $t+1$ becomes
-infinitessimally small. This enables us to use tools from calculus, the
+infinitesimally small. This enables us to use tools from calculus, the
 mathematical system for relating rates of change that describe many
 physical and biological phenomena, including the diffusion of
 adaptations which we use it for here.
@@ -39,12 +39,20 @@ adaptations which we use it for here.
 You do not need to solve any differential equations yourselves, but you
 will need to write a function that uses the solution in the following
 problem. The differential equations for the continuous-time model are
-nearly identical to the discrete-time recursion.
+nearly identical to the discrete-time recursion. 
 
-::: {style="color:red"}
-rework ^^^ to refer to Course Notes
-:::
+Please see the [derivation in the Course Notes](https://mt.digital/teaching/CSS4S/notes/#legacy-adapt) of the continuous-time equation for $A(t)$ ([Equation 7](https://mt.digital/teaching/CSS4S/notes/#eq-logistic-LA) in the course notes):
+$$
+A(t) = \frac{N}{1 + \frac{N}{A_0}e^{-\alpha N t}},
+$$ {#eq-logistic-LA}
 
+Write an R function called `adoption_total` that returns the value of $A(t)$ given parameters $N$, $A_0$, and $\alpha$. The function signature should look something like this:
+
+```{r}
+adoption_total <- function(t, A_0 = 5, N = 100, alpha = 0.2) {
+  # YOUR CODE HERE
+}
+```
 
 ## Agent-based LA model (1 point)
 
@@ -55,8 +63,8 @@ modeling where individuals and their interactions are explicitly,
 mechanistically represented in the form of computer code. We will match
 the well-mixed approximations as well as we can using agent-based
 modeling. In general, though, social networks break the well-mixed and
-mass-action assumptions, which we will see more explicitly in Problem
-5\](5_AdoptionProbabilities.html). For now, please review the Primer on
+mass-action assumptions, which we will see more explicitly in [Problem
+5](5_AdoptionProbabilities.html). For now, please review the Primer on
 agent-based modeling, below. You can adapt code from the primer for
 Problem PS2.1.2 that follows.
 
@@ -64,13 +72,14 @@ Problem PS2.1.2 that follows.
 
 In agent-based modeling we need to define several entities and processes
 in software to fully specify how the agent-based model will work.
-Together, these define an agent-based model: 1. Environmental and
-ecological factors, including the payoff from doing Legacy and Adaptive
-behaviors, which could change over time. 1. The *agents*, which are
-simulated people in the case of human social science. 1. Social
-processes: a. Partner selection b. *Dyadic* interaction 1. Non-social,
-individual-level behavior change (e.g. in LAL agents drop the adaptation
-with probability $\delta$)
+Together, these define an agent-based model: 
+
+1. Environmental and ecological factors, including the payoff from doing Legacy and Adaptive behaviors, which could change over time. 
+1. The *agents*, which are simulated people in the case of human social science. 
+1. Social processes: 
+  a. Partner selection  
+  b. *Dyadic* interaction 
+1. Non-social, individual-level behavior change (e.g. in LAL agents drop the adaptation with probability $\delta$)
 
 To do agent-based modeling, we will use code currently located in the
 `socmod.R` file in the root directory. This approach combines
@@ -106,14 +115,10 @@ Legacy <- Behavior$new()
 
 ### Agents and agent-based modeling of social behavior
 
-First,
-
-### 
 
 #### Specify the LA agent-based model (0.5 points)
 
 ```{r}
-
 partner_selection <- function(learner, model) {
   # YOUR CODE HERE.
 }
@@ -127,4 +132,7 @@ la_interaction <- function(learner, teacher, model) {
 la_model <- AgentBasedModel$new(lal_partner_selection, la_interaction)
 ```
 
-#### Compare adoption curves from the continuous-time and agent-based models (0.5 points)
+#### Compare adoption curves from a few runs of the continuous-time and agent-based models (0.5 points)
+
+
+

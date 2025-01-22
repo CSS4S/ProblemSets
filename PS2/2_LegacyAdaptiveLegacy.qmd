@@ -16,13 +16,13 @@ predict whether
 ### Diffusion rate at introduction when $t,~A_t \approx 0$ (0.5 points)
 
 
-### Equilibrium $A_t$, $\hat A$, as $t\to\infty$ (0.5 points)
+### $\hat A$, as $t\to\infty$ (0.5 points)
 
 First, follow _MSB_ pp. 95-97 to show that the _prevalence_ of the behavior $A$
 (i.e., the proportion of the population doing $A$)
 at equilibrium is 
 $$
-\hat a = \frac{\hat A}{N} = 
+\ahat = \frac{\hat A}{N} = 
 $$
 
 Use the mathematics in this and the previous problem set as models for writing
@@ -42,7 +42,7 @@ recovery rate $\gamma$.
 
 ```{r}
 lal_model_step <- function(model) {
-  
+   
 }
 lal_model <- AgentBasedModel$new()
 ```

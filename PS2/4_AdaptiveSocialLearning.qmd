@@ -19,4 +19,7 @@ In the LAL model, individuals partner randomly with neighbors. Humans, and other
 
 In this section, define the success-biased social learning model to bias
 partner selection. Specifically, write a `partner_selection` function that
-weights neighbors by their _fitness_. 
+samples one teacher, weighted by their _fitness_. 
+
+
+## Compare 

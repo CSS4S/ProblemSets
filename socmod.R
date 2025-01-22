@@ -17,16 +17,15 @@ Behavior <- R6Class(classname = "Behavior", public = list(
 Agent <- R6Class(classname="Agent", public = list(
   curr_behavior = NA,
   prev_behavior = NA,
-  neighborhood = vector(mode = "integer", length = 0),
+  neighbors = vector(mode = "integer", length = 0),
   fitness = NA,
   name = NA,
   initialize = function(curr_behavior, fitness = NA, name = NA) {
     self$curr_behavior = curr_behavior
   },
-  add_neighbors = function(neighbors) {
-    
+  add_neighbors = function(new_neighbors) {
+    self$neighbors <- c(self$neighbors, new_neighbors) 
   }
-
 ))
 
 
