@@ -1,0 +1,25 @@
+---
+title: "Adaptive social learning strategies: conformist learning and success-biased partner selection"
+bibliography: ../problem_sets.bib
+---
+
+
+In the LAL model, individuals partner randomly with neighbors. Humans, and other cultural species, have been endowed by evolution with adaptive _social learning strategies_, i.e., strategies that help them decide _what_ to learn, _when_ to learn, and from _whom_ to learn [@Kendal2018]. We will begin with two strategies:
+
+1. _Conformity_ is a heuristic that can help when one's private knowledge or predictions of which behavior is best conflicts with social information, _conforming_ can help by defaulting to adopt the behavior done by the largest number of people [@Kendal2004;@Morgan2012a].
+2. _Success-biased_ partner selection: tendency to seek teachers receiving greater benefits.
+
+
+## Social learning with conformity (0.5 points)
+
+
+
+## Social learning with success-biased teacher selection (0.5 points)
+
+
+In this section, define the success-biased social learning model to bias
+partner selection. Specifically, write a `partner_selection` function that
+samples one teacher, weighted by their _fitness_. 
+
+
+## Compare 
