@@ -81,9 +81,12 @@ AgentBasedModel <- R6Class(classname="AgentBasedModel",
           if (is.null(network)) {
             self$network <- igraph::make_full_graph(length(agents))
           } else {
-            for (agent_idx in 1:length(agents)) {
-              agents[[agent_idx]]$neighbors <- igraph::neighbors(network, agent_idx)
-            }
+            self$network <- network    
+          }
+
+          for (agent_idx in 1:length(agents)) {
+            agents[[agent_idx]]$neighbors <- 
+              igraph::neighbors(self$network, agent_idx)
           }
 
           self$agents <- agents
@@ -94,6 +97,7 @@ AgentBasedModel <- R6Class(classname="AgentBasedModel",
 
         invisible(self)
       },
+
     .full_step = function() {
       for (learner in self$agents) {
         teacher <- self$partner_selection(agent, self)
@@ -103,9 +107,7 @@ AgentBasedModel <- R6Class(classname="AgentBasedModel",
       }
     }
   ), 
-  private = list(
-  )
-
+  private = list()
 )
 
 
@@ -210,3 +212,9 @@ add_unique_edge <- function(g, v1, v2) {
 
   return (g)
 }
+
+library(testthat)
+test_that("multiplication works", {
+  expect_equal(2 * 2, 4, label="expect true")
+  expect_equal(2 + 2, 5, label="expect false")
+})
