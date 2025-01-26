@@ -130,11 +130,11 @@ run <- function(model, partner_selection, interaction, model_step, max_t) {
   output <- tibble(t = 0:max_t,
                    A = rep(0.0, max_t + 1))
 
-  adoption <- function(agents) {
+  total_adoption <- function(agents) {
     sum(purrr::map_vec(agents, \(a) { ifelse(a$curr_behavior == "Adaptive", 1, 0) }))
   }
 
-  output[1, ] <- list(0, adoption(model$agents))
+  output[1, ] <- list(0, total_adoption(model$agents))
   
   while (!stop_cond(model, max_t)) {
 
@@ -213,8 +213,8 @@ add_unique_edge <- function(g, v1, v2) {
   return (g)
 }
 
-library(testthat)
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4, label="expect true")
-  expect_equal(2 + 2, 5, label="expect false")
-})
+# library(testthat)
+# test_that("multiplication works", {
+#   expect_equal(2 * 2, 4, label="expect true")
+#   expect_equal(2 + 2, 5, label="expect false")
+# })
