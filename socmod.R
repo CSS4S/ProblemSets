@@ -213,7 +213,20 @@ add_unique_edge <- function(g, v1, v2) {
   return (g)
 }
 
+
+
+#******************************** UNIT TESTS *********************************#
+
 library(testthat)
+
+test_that("Agents have expected neighbors in initialized Model", {
+  # If network is not specified, use complete network.
+  # asdf
+  m <- AgentBasedModel$new()
+  expect_equal()
+})
+
+
 test_that("multiplication works", {
   expect_equal(2 * 2, 4, label="expect true")
   expect_equal(2 + 2, 5, label="expect false")
