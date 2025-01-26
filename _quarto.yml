@@ -4,4 +4,4 @@ project:
 format: 
   html:
     code-link: true
-    fontsize: medium
+    fontsize: small

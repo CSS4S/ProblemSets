@@ -2,8 +2,14 @@
 title: "Problem 2.5: Why social networks are not \"well-mixed\""
 ---
 
+```{r setup, include=FALSE}
+
+# Load dependencies.
+source("../socmod.R")
+```
+
 \newcommand\exprobi{{\varepsilon_i}}
-\newcommand\exprob{{\bar\varepsilon}}
+\newcommand\exprobmean{{\bar\varepsilon}}
 
 For our purposes, a _well-mixed_ population is a hypothetical 
 one where any one person is equally
@@ -22,7 +28,8 @@ individuals have adopted the behavior.
 
 Social networks in the real world are not well-mixed, 
 since individuals can only learn from whom they meet. 
-To see the consequences of this, we will see how calculate $\exprob$ 
+To see the consequences of this, we will see how $\exprobmean$ is not as we'd
+expect with the well-mixed assumption for a real-world network.
 Specifically, let's have
 fun with an anachronistic situation where some of the
 Florentine oligarchs have installed solar panels. Let's pretend that if
@@ -38,10 +45,69 @@ lattice networks and small-world networks with different edge randomization
 probabilities, $p$.
 
 
-## Write a function to calculate *exposure probability* $\exprobi$ and $\exprob$
+## Write a function to calculate *mean exposure probability* $\exprobmean$ (1 point)
 
-In this problem you will edit `expoprob.R` here in the PS2 directory, which
-the _individual_ and _global exposure
-probability_, i.e., the probability that someone doing a legacy behavior
-encounters someone doing $A$, and is thereby _exposed to_ $A$. 
+In this problem you will edit the function `mean_exposure_prob` in the file `expoprob.R` 
+in the PS2 directory. Recall that 
+the individual exposure probability, $\exprobi$, is the probability that
+someone doing a legacy behavior encounters someone doing $A$, and is thereby
+_exposed to_ $A$; $\exprobmean$ See [Course Notes on exposure probability
+calculations]() for more information, including how $\exprobi$ is calculated. 
+
+
+
+## Use your mean exposure probability function (1 point total in two parts)
+
+### Check that your function works as expected (0.5 points)
+
+
+For two different seed [A *seed* family here is one that has adopted 
+behavior $A$ at $t=0$, 
+or in other words was *initialized* with $A$.]{.aside} families, calculate $\exprobmean$ by hand for
+the adaptive behavior $A=$"solar panel installation" in the 1400s Florentine
+network. Then,
+
+Let's check our exposure probability function by calculating the mean
+exposure probability when one family is using solar-powered electricity. 
+Note that if we were operating in the well-mixed, $N \approx N-1$ regime, then we'd have
+$\exprobi = \frac{A}{N}$ for each individual doing behavior $L$, and the mean
+would be $\exprobmean = \frac{1}{N}\cdot\frac{LA}{N}$.
+
+
+
+
+## Maximizing impact of an intervention (0.5 points)
+
+@AiroldiChristakis2024 show that "friendship nomination targeting" 
+helped spread public health interventions better on average than random targeting 
+across 176 villages with 50-200 people each in rural Honduras. In that case,
+Airoldi and Christakis and their research teams asked participants to list their
+friends to create a social network where edges are listed friendships. In
+friendship nomination targeting, those who were most often listed as friends 
+were chosen as the first "targets" of a public health informational outreach
+campaign. The targets were chosen at random in the control condition. This
+suggests that there are optimal choices for the seeds written as agent indexes.
+We can write the set of seeds for some model $m$,
+$S=\{i~\text{ where }~b_i = A\text{ at }t=0\}$, defined as $S^* = \max_S
+\exprobmean(m(S))$, where $m(S)$ means a model configured by seed set $S$.
+
+We can use computational modeling to answer questions like this. Let's simplify
+things, though, to first understand a more 
+
+Fill in the code below to find which family maximizes $S^*$ when added to it.
+
+### If any two families could be chosen for $S^*$, is Medici one of them?
+
+Now, instead of assuming the Medici are one of the two seed families, assume
+that any two families may be chosen as seeds. Find $S^*$ in this case,
+by editing the following code:
+
+```{r}
+
+find_two_seed_families <- function() {
+  
+}
+```
+
+Does this suggest that we can select $S^*$ independently based on the number of
 

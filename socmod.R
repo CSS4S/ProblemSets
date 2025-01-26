@@ -13,6 +13,16 @@ Behavior <- R6Class(classname = "Behavior", public = list(
   initialize = function(payoff = 1.0) {self$payoff = payoff}
 ))
 
+.agent_exposure_prob <- function(agent) {
+
+  neighbors <- agent$neighbors
+
+  n_neighbors_adopted <- 
+    sum(map_vec(neighbors, \(n) { n$behavior == "Adaptive" }))
+
+  return (n_neighbors_adopted / length(neighbors))
+}
+
 
 Agent <- R6Class(classname="Agent", public = list(
   curr_behavior = NA,
@@ -26,6 +36,9 @@ Agent <- R6Class(classname="Agent", public = list(
   },
   add_neighbors = function(new_neighbors) {
     self$neighbors <- c(self$neighbors, new_neighbors) 
+  },
+  exposure_prob = function() {
+    return (.agent_exposure_prob(self))
   }
 ))
 
@@ -33,45 +46,29 @@ Agent <- R6Class(classname="Agent", public = list(
 # Set up empty stubs for default model subroutines.
 partner_selection_default = function(agent) {}
 interaction_default  = function(agent1, agent2, model) {}
-model_step_default        = function(model) {}
+model_iter_default        = function(model) {}
+# The default stop_cond.
+stop_cond_default <- function(max_t) { 
+  
+  return function(model, max_t) {
+    return (model$step >= max_t) 
+  }
+}
 
 
 AgentBasedModel <- R6Class(classname="AgentBasedModel",
   public = list(
     agents = c(), 
     step = 0,
-    partner_selection = NULL,
-    interaction = NULL,
-    model_step = NULL ,
     network = NULL,
     params = list(),
     add_agents = function(agents_to_add) {
       self$agents <- c(self$agents, agents_to_add)
       invisible(self)
     },                    
-    # initialize_network = function(edges) {
-    #   # Create the network based on the edges and set `network` attribute.
-
-    #   # Read and store neighbors for each agent so they 
-    #   # don't have to be looked up every time.
-    #   for (agent in self$agents) {
-    #     agent$neighbors <- c(1)  ## XXX FIX THIS ##
-    #   }
-    # },
     initialize = 
-      function(partner_selection = NULL, interaction = NULL, model_step = NULL, 
+      function(partner_selection = NULL, interaction = NULL, model_iter = NULL, 
                agents = NULL, network = NULL, ...) {
-
-        # Initialize model subroutines with default stubs if not provided.
-        if (is.null(partner_selection)) {
-          self$partner_selection = partner_selection
-        }
-        if (is.null(interaction)) {
-          self$interaction = interaction_default
-        }
-        if (is.null(model_step)) {
-          self$model_step = model_step
-        }
 
         # Initialize agents and network if the agents were provided. Do nothing
         # if no agents provided. If agents provided but not network, 
@@ -92,33 +89,26 @@ AgentBasedModel <- R6Class(classname="AgentBasedModel",
           self$agents <- agents
         }
 
-        # Convert keyword arguments after model_step to parameters in named list.
+        # Keyword arguments in ... become model parameters in named list.
         self$params = list(...)
 
         invisible(self)
-      },
-
-    .full_step = function() {
-      for (learner in self$agents) {
-        teacher <- self$partner_selection(agent, self)
-        self$interaction(learner, teacher, self)
-        self$model_step(self)
-        self$step <- self$step + 1
       }
-    }
+
   ), 
   private = list()
 )
 
 
-run <- function(model, partner_selection, interaction, model_step, max_t) {
+run <- function(model, partner_selection = partner_selection_default,
+                interaction = interaction_default, 
+                model_iter = model_iter_default, 
+                stop_cond = default_stop_cond) {
 
-  # Currently define the stop_cond by the max time step. 
-  stop_cond <- function(model, max_t) { return (model$step >= max_t) }
 
   # Check that required components are not null
   check_not_null <- 
-    c(model$partner_selection, model$interaction, model$model_step, model$network)
+    c(partner_selection, interaction, model_iter)
 
   for (component in check_not_null)
     assert_that(!is.null(component))
@@ -142,13 +132,26 @@ run <- function(model, partner_selection, interaction, model_step, max_t) {
       teacher <- partner_selection(learner, model)
       interaction(learner, teacher, model)
     }
-    model_step(model)
+
+    # 
+    model_iter(model)
+
+    # Increment time step.
     model$step <- model$step + 1
 
-    output[model$step + 1, ] <- list(model$step, adoption(model$agents))
+    # Need to add one to current step, i.e., output[1,] was row 1, but tstep 0,
+    # and so when model$step <- model$step + 1 runs for the first time, 
+    # model$step increments from 0 to 1. If we did not have +1, the last 
+    # time step in the output would just be 0 from the initialization of output.
+    output[model$step + 1, ] <- list(model$step, total_adoption(model$agents))
   }
 
   return (output)
+}
+
+
+run_trials <- function(model_factory, n_trials = 2, ...) {
+  
 }
 
 
