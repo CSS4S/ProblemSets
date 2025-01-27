@@ -18,7 +18,15 @@ library(tibble)
        small-world network, starting from a regular lattice network. Use the `socmod.R` in the ProblemSets root directory. Follow the "Small-world network algorithm" on p. 272 of *Modeling Social Behavior* (Smaldino, 2023).   
     2.  `make_preferential_attachment`, following the preferential attachment algorithm on p. 282 of *Modeling Social Behavior.*
 
-## Problem PS2.3.2: calculate average path length, degree distribution, and clustering in various small-world and preferential attachment networks (1 point total)
+- To make the small world network, follow the recipe for rewiring each edge with
+  probability, $p$ in the online documentation for the 
+  [`rewire` function in igraph](https://r.igraph.org/reference/rewire.html).
+- To make the preferential attachment network, use the `regular_lattice`
+  function I wrote in [`socmod.R`](../socmod.R) as a guide to 
+  1. Initialize an empty graph (no edges) with two nodes.
+  1. Add new edges using the [igraph `add_edges`](https://igraph.org/r/doc/add_edges.html) function.
+
+## Problem PS2.3.2: calculate average path length, clustering, and degree distribution in various small-world and preferential attachment networks (1 point total)
 
 ### 3.2.1: Recreate the classic plot of average path length and clustering (0.5 points)
 
@@ -75,5 +83,7 @@ Create at least two networks with $N=100$ individuals using your small-world net
 Plot the degree distributions of each of these three networks, following the
 steps shown in the [Medici example in the Course Notes](https://mt.digital/teaching/CSS4S/notes/#analysis-of-the-medici-family). 
 Explain what is similar or different between the degree distributions for the 
-three networks you created.
+three networks you created. Make sure to clearly label your graphs somehow
+so the reader knows which distributions correspond to which construction
+algorithm and settings.
 

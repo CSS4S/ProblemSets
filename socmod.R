@@ -55,13 +55,7 @@ partner_selection_default = function(agent) {}
 interaction_default  = function(agent1, agent2, model) {}
 model_iter_default        = function(model) {}
 # The default stop_cond.
-stop_cond_default <- function(max_t) { 
-  
-  return (function(model, max_t) {
-    return (model$step >= max_t) 
-  })
-}
-
+stop_cond_default <- function(model) { return (FALSE) }
 
 AgentBasedModel <- R6Class(classname="AgentBasedModel",
   public = list(
@@ -123,51 +117,47 @@ AgentBasedModel <- R6Class(classname="AgentBasedModel",
 )
 
 
-run <- function(model, partner_selection = partner_selection_default,
+run <- function(model, max_its = 1, 
+                partner_selection = partner_selection_default,
                 interaction = interaction_default, 
-                model_iter = model_iter_default, stop_cond = 1L) {
+                model_iter = model_iter_default, 
+                stop_cond = stop_cond_default) {
 
   # Check that there are some agents.
   assert_that(length(model$agents) > 0)
 
-  # Initialize output tibble.
-  if (is.null(model$output)) {
+  # Initialize output tibble for this run, starting with default tmin, tmax.
+  tmin <- 0
+  tmax <- max_its
 
-    model$output <- tibble(t = 0:max_t,
-                           A = rep(0.0, max_t + 1))
+  if (is.null(model$output)) {
+    # If there is no output yet for the model, initialize a new output tibble.
+    tmax <- max_its + 1
+    model$output <- tibble(t = 0:tmax,
+                           A = rep(0.0, tmax + 1))
+
+    total_adoption <- function(agents) {
+      sum(purrr::map_vec(agents, 
+          \(a) { ifelse(a$curr_behavior == "Adaptive", 1, 0) }))
+    }
+  
 
     model$output[1, ] <- list(0, total_adoption(model$agents))
 
   } else {
-
-    prev_t <- model$output$t
+    # If the model has an output tibble, figure out the last time step and
+    # initialize a new, properly-indexed new tibble to concatenate with previous.
+    prev_tvec <- model$output$t
     prev_tmax <- model$output$t[length(prev_t)]
-    min_t <- prev_tmax + 1
-    max_t <- prev_tmax + stop_cond
+    tmin <- prev_tmax + 1
+    tmax <- tmin + max_its 
 
+    # Allocate more space for new output data.
     model$output <- 
-      rbind(model$output, tibble(t = min_t:max_t, A = rep(0.0, max_t + 1)))
+      rbind(model$output, tibble(t = tmin:tmax, A = rep(0.0, max_its)))
   }
 
-  # If stop_cond is an integer, use as max time step in new stop_cond func.
-  if (!is.function(stop_cond)) {
-    n_iterations <- stop_cond
-    curr_model_step <- model$step
-
-    # Redefine stop condition with dummy variable to run model another 
-    # n_iterations = stop_cond steps.
-    stop_cond <- function(model, .) { 
-      return (model$step <= curr_model_step + n_iterations) 
-    }
-  }
-
-
-  total_adoption <- function(agents) {
-    sum(purrr::map_vec(agents, 
-        \(a) { ifelse(a$curr_behavior == "Adaptive", 1, 0) }))
-  }
-  
-  while (!stop_cond(model, max_t)) {
+  while ((model$step <= tmax) && !stop_cond(model)) {
     
     for (learner in sample(model$agents)) {
       teacher <- partner_selection(learner, model)
@@ -183,10 +173,11 @@ run <- function(model, partner_selection = partner_selection_default,
     # and so when model$step <- model$step + 1 runs for the first time, 
     # model$step increments from 0 to 1. If we did not have +1, the last 
     # time step in the output would just be 0 from the initialization of output.
-    output[model$step + 1, ] <- list(model$step, total_adoption(model$agents))
+    model$output[model$step + 1, ] <- 
+      list(model$step, total_adoption(model$agents))
   }
 
-  return (output)
+  return (model)
 }
 
 
@@ -256,20 +247,3 @@ add_unique_edge <- function(g, v1, v2) {
   return (g)
 }
 
-
-
-#******************************** UNIT TESTS *********************************#
-
-# library(testthat)
-
-# test_that("Agents have expected neighbors in initialized Model", {
-  # If network is not specified, use complete network.
-  # m <- AgentBasedModel$new()
-  # expect_equal()
-# })
-
-
-# test_that("multiplication works", {
-  # expect_equal(2 * 2, 4, label="expect true")
-  # expect_equal(2 + 2, 5, label="expect false")
-# })

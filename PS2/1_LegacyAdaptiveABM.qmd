@@ -49,13 +49,17 @@ course notes): $$
 A(t) = \frac{N}{1 + \frac{N}{A_0}e^{-\alpha N t}},
 $$ {#eq-logistic-LA}
 
-Write an R function called `adoption_total` that returns the value of
-$A(t)$ given parameters $N$, $A_0$, and $\alpha$. The function signature
-should look something like this:
+Write an R function here 
+called `adoption_total` that returns the value of
+$A(t)$ at time $t$, given parameters $N$, $A_0$, and $\alpha$. 
+The function signature should look something like this:
 
 ```{r}
 adoption_total <- function(t, A_0 = 5, N = 100, alpha = 0.2) {
-  # YOUR CODE HERE
+  # YOUR CODE HERE TO CALCULATE THE CORRECT RETURN VALUE, ret.
+  ret <- 0
+
+  return (ret)
 }
 ```
 
@@ -76,8 +80,8 @@ modeling.
 
 #### Specify the LA agent-based model (0.5 points)
 
-For this part of the problem, adapt the \[toy ABM example in the Course
-Notes\](<https://mt.digital/teaching/CSS4S/notes/#agent-based-modeling>)
+For this part of the problem, adapt the [toy ABM example in the Course
+Notes](<https://mt.digital/teaching/CSS4S/notes/#agent-based-modeling>)
 to implement an agent-based LA model.
 
 ```{r}
@@ -90,21 +94,28 @@ la_interaction <- function(learner, teacher, model) {
     # YOUR CODE HERE.
   }
 }
-
 ```
 
 #### Compare adoption curves from continuous-time and agent-based models (0.5 points)
 
-In this problem, create three time series plots of adoption of the
-adaptive behavior over time for both the continuous-time and agent-based
-models, for a total of six time series. \
-\
-Hypothesize first how you think different combinations of adoption and
-drop rates will affect the shape of the adoption curves. Also explain
-your expectations about how the continuous-time and agent-based models
+In this problem, create three time series plots of adoption over time for 
+$\alpha = 0.05,~0.2,\text{ and }0.5$. both the continuous-time and agent-based
+models, for a total of six time series. 
+
+Before writing any code, write here how you think different combinations of
+adoption and drop rates will affect the shape of the adoption curves. Also
+explain whether and how the continuous-time and agent-based models
 will be similar or different.
 
-Put your code with resulting plots below. After that, explain whether
+Put your code with resulting plots below or in a separate R file that you
+include here with `source`. After that, explain whether
 your hypotheses were correct or not. Close with a few sentences
 explaining the difference between continuous-time and agent-based
-models, reflecting on what you observed in the plots.\
+models, reflecting on what you observed in the plots.
+
+
+```{r}
+# YOUR CODE HERE
+
+source("mycode.R")
+```

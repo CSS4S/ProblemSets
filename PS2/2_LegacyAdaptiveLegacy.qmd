@@ -38,14 +38,17 @@ Substitute the adoption rate, $\alpha$, for the
 transmissibility, $\tau$, and use the drop rate $\delta$ in place of the 
 recovery rate $\gamma$. 
 
-- Make sure to specifically address why $A = \hat A$ is a _stable_ equilibrium,
+- Please specifically address why $A = \hat A$ is a _stable_ equilibrium,
   but $A = 0$ is not, even though $\Delta A = 0$ when $A = 0$. 
-- Support your explanation by recreating the two plots from Figure 4.9 using the `hline`
+- Support your explanation by recreating the two plots from Figure 4.9 using the 
+  `hline`
   function in `ggplot2` to draw the horizontal line at 0.0 in your plot of
   $\Delta A$ over $A$ (left plot in Figure 4.9 of *MSB*) and at $A = \hat A =
   0.75$ (right plot).
 
 ## Agent-based LAL (1 point)
 
-Create an agent-based LAL model. Select three combinations of $\alpha$ and $\delta$ that have $R_0 = \alpha / \delta > 1$ so that the adaptation diffuses. What do you expect for 
-different combinations of $\alpha$ and $\delta$? Plot the results and explain whether or not your expectations were confirmed.
+Create an agent-based LAL model. Select four combinations of $\alpha$ and $\delta$ 
+that have $R_0 = \alpha / \delta > 1$ so that the adaptation diffuses. 
+What do you expect for your different combinations of $\alpha$ and $\delta$? 
+Plot the results and explain whether or not your expectations were confirmed.
