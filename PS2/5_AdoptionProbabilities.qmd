@@ -1,43 +1,137 @@
 ---
-title: "Problem 2.5: Heterogeneous interaction probabilities in social networks"
+title: "Problem 2.5: Why social networks are not \"well-mixed\""
 ---
-\newcommand\pla{{p^{LA}}}
-\newcommand\plai{{p^{LA}_i}}
 
-In this exercise we will see how social networks relax the well-mixed
-assumption. To do this, we will compare the probability that a person 
-doing $L$ observes one doing $A$ under the well-mixed assumption and 
-in networked populations. 
+```{r setup}
+#| echo: true
+#| 
+# Load dependencies.
+library(igraph);
+library(netrankr);
+source("../socmod.R")
 
-randomly-selected
-neighbor 
-The well-mixed assumption means the probability that an individual $i$ doing $L$ partners with an individual doing $A$ is the same for all $i$:
-$$
-p_i(L,A) = p_j(L,A) = p(L,A) \text{ for all $i,j$.}
-$$
-Furthermore, it implies that the mean of $p(L,A)$ across agents is constant over time, and independent of which individuals have adopted the behavior.
+data("florentine_m")
 
-Social networks are clearly not well-mixed since individuals in those networks can only learn from network neighbors. But what is the distribution, exactly, of $\Pr(L,A)$? For fun let's consider an anachronistic example where some of the Florentine oligarchy start to install solar panels. Let's pretend
-that if families have intermarried, then they might communicate about solar
+# Delete Pucci family (isolated)
+florence_families <- 
+  delete_vertices(florentine_m, which(degree(florentine_m) == 0))
+```
+
+\newcommand\exprobi{{\varepsilon_i}}
+\newcommand\exprobmean{{\bar\varepsilon}}
+
+For our purposes, a _well-mixed_ population is a hypothetical 
+one where any one person is equally
+likely to encounter anyone else. This matters for calculating the _exposure
+probability_ for individual $i$, $\exprobi$, which is the probability that
+a person doing legacy behavior $L$ observes or learns from someone doing
+behavior $A$. If we also assume that the population is large
+enough so that $N \approx N - 1$, then $\exprobi = \frac{A}{N}$ for everyone
+(i.e., for all $i$). 
+In the difference and differential equations versions of the LAL model, and
+in the analytical payoff-biased social learning model, the well-mixed assumption
+enables the formal calculation of equilibrium adoption levels and fixation
+probabilities and times. One consequence of the well-mixed assumption is that
+the mean exposure probability, $\exprob$, is the same no matter which $A$
+individuals have adopted the behavior.
+
+Social networks in the real world are not well-mixed, 
+since individuals can only learn from whom they meet. 
+To see the consequences of this, we will see how $\exprobmean$ is not as we'd
+expect with the well-mixed assumption for a real-world network.
+Specifically, let's have
+fun with an anachronistic situation where some of the
+Florentine oligarchs have installed solar panels. Let's pretend that if
+families have intermarried, then they might communicate about solar
 panel installation with one another. If there's no intermarriage, they don't
-talk about sustainable adaptations. Then we can use the marriage social network
-as a communication network for sustainable adaptation diffusion.
+talk about sustainable adaptations. 
 
-## Problem 2.5.1: $\Pr(L,A)$ in different network structures 
-
-Create the networks in the following lists with $N=100$ and $A = 25$. 
-For each of the following, how does the distribution of $\Pr(L,A)$ change? 
-
-1. Regular lattices with 
-   - $k=10=N/10$ 
-   - $k=50=N/2$
+In this problem, you will write code to calculate $\exprobi$, 
+filling in key parts of a function called `exposure_probability` in file
+`PS2/expoprob.R`. You will then use it to calculate the exposure probability
+for different values of $A$, first in the Florentine network and then in 
+lattice networks and small-world networks with different edge randomization
+probabilities, $p$.
 
 
-## Problem 2.5.2: Plot mean probability of exposure for all agents doing $L$ 
+## Write a function to calculate *mean exposure probability* $\exprobmean$ (1 point)
 
-Call the mean probability of exposure the expected value of $\plai$
+In this problem you will edit the function `mean_exposure_prob` in the file `expoprob.R` 
+in the PS2 directory. Recall that 
+the individual exposure probability, $\exprobi$, is the probability that
+someone doing a legacy behavior encounters someone doing $A$, and is thereby
+_exposed to_ $A$; $\exprobmean$ See [Course Notes on exposure probability
+calculations]() for more information, including how $\exprobi$ is calculated. 
+
+```{r}
+source("../socmod.R")
+# Make an agent-based model that will assign neighbors to each agent.
+abm <- AgentBasedModel$new(network = florence_families)
+
+# m <- AgentBasedModel$new()
+abm$agents[[1]]$neighbors
+```
+
+## Use your mean exposure probability function (1 point total in two parts)
+
+### Check that your function works as expected (0.5 points)
 
 
-## Writing prompt (1 point)
+For two different seed [A *seed* family here is one that has adopted 
+behavior $A$ at $t=0$, 
+or in other words was *initialized* with $A$.]{.aside} families, calculate $\exprobmean$ by hand for
+the adaptive behavior $A=$"solar panel installation" in the 1400s Florentine
+network. Then,
 
+Let's check our exposure probability function by calculating the mean
+exposure probability when one family is using solar-powered electricity. 
+Note that if we were operating in the well-mixed, $N \approx N-1$ regime, then we'd have
+$\exprobi = \frac{A}{N}$ for each individual doing behavior $L$, and the mean
+would be $\exprobmean = \frac{1}{N}\cdot\frac{LA}{N}$.
+
+
+
+
+## Maximizing impact of an intervention (0.5 points)
+
+@AiroldiChristakis2024 show that "friendship nomination targeting" 
+helped spread public health interventions better on average than random targeting 
+across 176 villages with 50-200 people each in rural Honduras. In that case,
+Airoldi and Christakis and their research teams asked participants to list their
+friends to create a social network where edges are listed friendships. In
+friendship nomination targeting, those who were most often listed as friends 
+were chosen as the first "targets" of a public health informational outreach
+campaign. The targets were chosen at random in the control condition. This
+suggests that there are optimal choices for the seeds written as agent indexes.
+We can write the set of seeds for some model $m$,
+$S=\{i~\text{ where }~b_i = A\text{ at }t=0\}$, defined as $S^* = \max_S
+\exprobmean(m(S))$, where $m(S)$ means a model configured by seed set $S$.
+
+We can use computational modeling to answer questions like this. Let's simplify
+things, though, to first understand a more 
+
+Fill in the code below to find which family maximizes $S^*$ when added to it.
+
+### What family is best after choosing the Medicis as a seed family?
+
+Assume we choose the Medici for one of the two seed families for the solar energy intervention. Calculate which other family would give the greatest mean exposure probability?
+
+```{r}
+
+```
+
+### If any two families could be chosen for $S^*$, is Medici one of them?
+
+Now, instead of assuming the Medici are one of the two seed families, assume
+that any two families may be chosen as seeds. Find $S^*$ in this case,
+by editing the following code:
+
+```{r}
+
+best_two_seed_families <- function() {
+  
+}
+```
+
+Does this suggest that we can select $S^*$ independently based on the number of
 
